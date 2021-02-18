@@ -1,0 +1,1507 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=tex 2000.4.27)  15 JAN 2008 15:30
+**t-y-scheme.tex
+(t-y-scheme.tex (docmacro.tex (tex2page.tex version 2003-08-17
+\evalQauxfilecount=\count26
+\verbbracebalancecount=\count27
+\sectionscratchfileport=\write0
+\secnumdepth=\count28
+\tocdepth=\count29
+ (t-y-scheme.xrf)
+\xrefout=\write1
+) (/opt/local/share/texmf/tex/plain/misc/btxmac.tex
+\biblabelwidth=\dimen16
+\biblabelextraspace=\dimen17
+\@numparams=\count30
+\@auxfile=\write2
+)
+(/opt/local/share/texmf/tex/plain/dvips/epsf.tex
+This is `epsf.tex' v2.7k <10 July 1997>
+\epsffilein=\read0
+\epsfframemargin=\dimen18
+\epsfframethickness=\dimen19
+\epsfrsize=\dimen20
+\epsftmp=\dimen21
+\epsftsize=\dimen22
+\epsfxsize=\dimen23
+\epsfysize=\dimen24
+\pspoints=\dimen25
+\epsfnoopenhelp=\toks12
+)) (title.tex) (toc.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex) (t-y-scheme.toc [1
+\openout1 = `t-y-scheme.xrf'.
+
+])
+\tocout=\write3
+) (preface.tex
+\openout0 = `Z-sec-temp.tex'.
+
+
+[2
+\openout3 = `t-y-scheme.toc'.
+
+] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (0.27858pt too wide) in paragraph at lines 9--28
+\tenrm the-less use-ful and us-able. Such as-pects in-clude \tentt call-with-cu
+rrent-continuation\tenrm ,
+
+\hbox(6.94444+1.94444)x361.34999, glue set - 1.0
+.\tenrm t
+.\tenrm h
+.\tenrm e
+.\discretionary
+..\tenrm -
+.\tenrm l
+.etc.
+
+\indexout=\write4
+(t-y-scheme.aux)
+\openout2 = `t-y-scheme.aux'.
+
+ 39: Undefined citation `r5rs'.) (hello.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [3
+\openout4 = `t-y-scheme.idx'.
+
+] (Z-sec-temp.tex) 46: Undefined citation `mzscheme'. [4]) (data.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [5] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[6]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[7]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 261--262
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (5.32489pt too wide) in paragraph at lines 313--323
+\tentt <=>\tenrm , and \tentt $!#* \tenrm are all sym-bols; \tentt 16\tenrm , \
+tentt -i \tenrm (a com-plex num-ber!), \tentt #t\tenrm , \tentt "this-is-a-stri
+ng"\tenrm ,
+
+\hbox(7.5+2.5)x361.34999, glue set - 1.0
+.\tentt <
+.\tentt =
+.\tentt >
+.\tenrm ,
+.\glue 3.33333 plus 2.08331 minus 0.88889
+.etc.
+
+[8]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 376--377
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 383--384
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[9]
+Overfull \hbox (5.48228pt too wide) in paragraph at lines 454--458
+[]\tenrm Strings ob-tained as a re-sult of calls to \tentt string\tenrm , \tent
+t make-string\tenrm , and \tentt string-append
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm S
+.\tenrm t
+.\tenrm r
+.\tenrm i
+.etc.
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 470--471
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 509--510
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[10] [11]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 698--699
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[12]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 770--771
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 812--813
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+)
+Overfull \hbox (9.37283pt too wide) in paragraph at lines 813--12
+\tenrm All the data types dis-cussed here can be lumped to-gether into a sin-gl
+e all-encompassing
+
+\hbox(6.94444+1.94444)x361.34999, glue set - 1.0
+.\tenrm A
+.\tenrm l
+.\tenrm l
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm t
+.etc.
+
+
+Overfull \hbox (13.86937pt too wide) in paragraph at lines 813--12
+\tentt c)\tenrm , \tentt "Hello"\tenrm , \tentt (quote xyz)\tenrm , \tentt (str
+ing->number "16")\tenrm , and \tentt (begin (display "Hello,
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\tentt c
+.\tentt )
+.\tenrm ,
+.\glue 3.33333 plus 2.08331 minus 0.88889
+.\tentt "
+.etc.
+
+(form.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [13] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (9.64142pt too wide) in paragraph at lines 12--20
+\tenrm eval-u-ates to the value held by the \tenit vari-able \tentt xyz\tenrm .
+ The list s-expression \tentt (string->number
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\tenrm e
+.\tenrm v
+.\kern-0.55556
+.\tenrm a
+.\tenrm l
+.etc.
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+[14] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[15]) (if.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [16] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (14.3715pt too wide) in paragraph at lines 55--59
+[]\tenrm Assuming \tentt pressure \tenrm of \tentt tube \tenrm is less than \te
+ntt 60\tenrm , this con-di-tional will at-tach \tentt floor-pump
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm A
+.\tenrm s
+.\tenrm s
+.\tenrm u
+.etc.
+
+[17]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[18]) (let.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [19] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[20]
+Overfull \hbox (3.97047pt too wide) in paragraph at lines 102--110
+[]\tenrm The pro-ce-dure \tentt bump-counter \tenrm is a zero-argument pro-ce-d
+ure (also called a \tenit thunk\tenrm ).
+
+\hbox(7.5+2.5)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm T
+.\tenrm h
+.\tenrm e
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.etc.
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[21]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex) [22]) (rec.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [23] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[24]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\verbwritefileQport=\write5
+\openout5 = `listpos.scm'.
+
+[25]
+\openout5 = `reverseb.scm'.
+
+ 207: Unresolved label `numint'.
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+) (io.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [26] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (16.94157pt too wide) in paragraph at lines 86--93
+[]\tenrm A port is as-so-ci-ated with a file by \tenit open-ing \tenrm the file
+. The pro-ce-dure \tentt open-input-file
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm A
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm p
+.\kern0.27779
+.etc.
+
+[27]
+Overfull \hbox (18.372pt too wide) in paragraph at lines 97--99
+[]\tenrm After you have per-formed I/O on a port, you should close it with \ten
+tt close-input-port
+
+\hbox(7.5+2.5)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm A
+.\tenrm f
+.\tenrm t
+.\tenrm e
+.etc.
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (11.34279pt too wide) in paragraph at lines 137--143
+[][]\tenrm Scheme sup-plies the pro-ce-dures \tentt call-with-input-file \tenrm
+ and \tentt call-with-output-file
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\write4{\string \indexentry {call-with-input-file@\q{call-with-input-file}}{\f
+olio \ETC.}
+.\write4{\string \indexentry {call-with-output-file@\q{call-with-output-file}}\
+ETC.}
+.\tenrm S
+.\tenrm c
+.\kern-0.27779
+.etc.
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (42.14046pt too wide) in paragraph at lines 168--174
+[]\tenrm It is of-ten con-ve-nient to as-so-ciate ports with strings. Thus, the
+ pro-ce-dure \tentt open-input-string
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\write4{\string \indexentry {open-input-string@\q{open-input-string}}{\folio \
+ETC.}
+.\tenrm I
+.\tenrm t
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm i
+.etc.
+
+[28]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 217--218
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+) (macro.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [29] (Z-sec-temp.tex) [30]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 115--116
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[31]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[32]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex) [33]) (struct.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [34] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[35]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `defstruct.scm'.
+
+[36]) (table.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [37] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `table.scm'.
+
+[38]) (os.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [39] (Z-sec-temp.tex)
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (6.27902pt too wide) in paragraph at lines 46--48
+[][][]\tenrm MzScheme pro-vides the \tentt system \tenrm pro-ce-dure via the \t
+entt process \tenrm li-brary. Use \tentt (require
+
+\hbox(8.5+2.22223)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\hbox(8.14003+0.0)x0.0, glue set - 9.48613fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+..\mathon
+..\hbox(4.51111+0.0)x4.48613, shifted -3.62892
+...\sevenrm 4
+..\mathoff
+..\kern 5.0
+.\vbox(8.5+0.0)x0.0
+.\tenrm M
+.\tenrm z
+.etc.
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[40]) (obj.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [41] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+(obj1.tex
+\openout5 = `obj1.scm'.
+
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[42]
+Overfull \hbox (10.39694pt too wide) in paragraph at lines 68--68
+[]      \tentt (vector ,@(map (lambda (method) `,(cadr method)) methods))))) 
+
+\hbox(6.94444+2.22223)x361.34999
+.\hbox(0.0+0.0)x20.0
+.\glue 5.24995
+.\glue 5.24995
+.\glue 5.24995
+.\glue 5.24995
+.etc.
+
+[43] [44]
+Overfull \hbox (31.39676pt too wide) in paragraph at lines 244--244
+[]                       \tentt (vector-ref (standard-class.method-vector class
+)
+
+\hbox(6.94444+0.8333)x361.34999
+.\hbox(0.0+0.0)x20.0
+.\glue 5.24995
+.\glue 5.24995
+.\glue 5.24995
+.\glue 5.24995
+.etc.
+
+
+Overfull \hbox (20.89685pt too wide) in paragraph at lines 245--245
+[]                       \tentt (loop (standard-class.superclass class)))))))) 
+
+
+\hbox(6.94444+2.22223)x361.34999
+.\hbox(0.0+0.0)x20.0
+.\glue 5.24995
+.\glue 5.24995
+.\glue 5.24995
+.\glue 5.24995
+.etc.
+
+\openout5 = `bike.scm'.
+
+[45]
+\openout5 = `deldup.scm'.
+
+) (obj2.tex
+\openout5 = `obj2.scm'.
+
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (130.25938pt too wide) in paragraph at lines 52--58
+\tenrm Note that the \tentt standard-class \tenrm vec-tor is in-com-pletely fil
+led in: the sym-bol \tentt value-of-standard-class-goes-here
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\tenrm N
+.\tenrm o
+.\tenrm t
+.\tenrm e
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.etc.
+
+[46]) (mulinh.tex
+\openout5 = `obj3.scm'.
+
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (5.27824pt too wide) in paragraph at lines 12--24
+\tenrm class. We re-de-fine the \tentt standard-class \tenrm to have a slot cal
+led \tentt class-precedence-list
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\tenrm c
+.\tenrm l
+.\tenrm a
+.\tenrm s
+.\tenrm s
+.etc.
+
+
+Overfull \hbox (52.39658pt too wide) in paragraph at lines 28--28
+[]          \tentt (list 'slots 'class-precedence-list 'method-names 'method-ve
+ctor) 
+
+\hbox(6.94444+2.22223)x361.34999
+.\hbox(0.0+0.0)x20.0
+.\glue 5.24995
+.\glue 5.24995
+.\glue 5.24995
+.\glue 5.24995
+.etc.
+
+
+Overfull \hbox (6.52824pt too wide) in paragraph at lines 38--45
+\tentt superclass \tenrm slot is now \tentt () \tenrm in-stead of \tentt #t\ten
+rm . This is be-cause the \tentt class-precedence-list
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\tentt s
+.\tentt u
+.\tentt p
+.\tentt e
+.\tentt r
+.etc.
+
+[47]
+\openout5 = `appendmap.scm'.
+
+\openout5 = `bike3.scm'.
+
+)) (callcc.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [48] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+
+Overfull \hbox (8.64983pt too wide) in paragraph at lines 25--29
+[][][]\tenrm If your Scheme does not al-ready have this ab-bre-vi-a-tion, in-cl
+ude \tentt (define call/cc
+
+\hbox(8.5+1.94444)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\hbox(8.14003+0.0)x0.0, glue set - 9.48613fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+..\mathon
+..\hbox(4.51111+0.0)x4.48613, shifted -3.62892
+...\sevenrm 6
+..\mathoff
+..\kern 5.0
+.\vbox(8.5+0.0)x0.0
+.\tenrm I
+.\tenrm f
+.etc.
+
+[49]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `listprod-fun.scm'.
+
+\openout5 = `listprod-cwcc.scm'.
+
+[50]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 195--196
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `fringe-fun.scm'.
+
+\openout5 = `fringe-cwcc.scm'.
+
+[51]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[52] 340: Undefined citation `coroutine'.
+\openout5 = `coroutine.scm'.
+
+\openout5 = `fringe-cor.scm'.
+
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 383--384
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[53]) (amb.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [54] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+7: Undefined citation `jmc:amb'. 7: Undefined citation `wc:amb'.
+7: Undefined citation `zmc:amb'. 21: Undefined citation `logick'.
+21: Undefined citation `mf:prolog'.
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+31: Undefined citation `sicp'. [55]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `amb.scm'.
+
+[56]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 183--184
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[57]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 335--336
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[58]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 344--345
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+347: Undefined citation `hunter'. [59]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 429--430
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+432: Undefined citation `4cp'. 442: Undefined citation `aop'. [60]
+Underfull \vbox (badness 10000) has occurred while \output is active
+\vbox(643.20255+2.22223)x361.34999
+.\glue(\topskip) 3.05556
+.\hbox(6.94444+2.22223)x361.34999, glue set 157.6016fil
+..\hbox(0.0+0.0)x20.0
+..\glue 5.24995
+..\glue 5.24995
+..\glue 5.24995
+..\glue 5.24995
+..etc.
+.\glue(\parskip) 0.0
+.\glue(\baselineskip) 2.83333
+.\hbox(6.94444+1.38887)x361.34999, glue set 152.35164fil
+..\hbox(0.0+0.0)x20.0
+..\glue 5.24995
+..\glue 5.24995
+..\glue 5.24995
+..\glue 5.24995
+..etc.
+.etc.
+
+ [61])
+(engine.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [62] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+4: Undefined citation `engine'.
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex) 79: Unresolved label `clock'.
+80: Undefined citation `guile'. [63]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 123--124
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `engine.scm'.
+
+[64]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[65]
+Overfull \hbox (16.23166pt too wide) in paragraph at lines 258--265
+[]\tenrm We also need to \tentt fluid-let \tenrm the glob-als \tentt *engine-es
+cape* \tenrm and \tentt *engine-entrance*\tenrm ,
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm W
+.\kern-0.83334
+.\tenrm e
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.etc.
+
+\openout5 = `nestable-engine.scm'.
+
+[66]) (script.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [67] (Z-sec-temp.tex)
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 43--44
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[68]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[69]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[70]) (cgi.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [71] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+12: Undefined citation `cgi'.
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 50--51
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `testcgi.scm'.
+
+[72] [73]
+Overfull \hbox (5.14699pt too wide) in paragraph at lines 148--148
+[]\tentt HTTP_ACCEPT = image/gif, image/x-xbitmap, image/jpeg, image/pjpeg,
+
+\hbox(6.94444+2.22223)x361.34999
+.\hbox(0.0+0.0)x20.0
+.\tentt H
+.\tentt T
+.\tentt T
+.\tentt P
+.etc.
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Overfull \hbox (11.37157pt too wide) in paragraph at lines 211--215
+[]\tenrm It is \tentt testcgi2.scm\tenrm 's re-spon-si-bil-ity to ex-tract the 
+in-for-ma-tion from \tentt QUERY_STRING\tenrm ,
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm I
+.\tenrm t
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm i
+.etc.
+
+[74]
+\openout5 = `testcgi2.scm'.
+
+\openout0 = `Z-sec-temp.tex'.
+
+ [75] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 286--287
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `testcgi2a.scm'.
+
+
+Overfull \hbox (23.20953pt too wide) in paragraph at lines 347--353
+\tenrm This shorter CGI script uses two util-ity pro-ce-dures de-fined in \tent
+t cgi.scm\tenrm . \tentt parse-form-data
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\tenrm T
+.\tenrm h
+.\tenrm i
+.\tenrm s
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.etc.
+
+\openout5 = `cgi.scm'.
+
+[76] [77]
+Overfull \hbox (38.9725pt too wide) in paragraph at lines 511--518
+\tenrm sent is placed in the en-vi-ron-ment vari-able \tentt CONTENT_LENGTH\ten
+rm . \tentt parse-form-data-using-stdin
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\tenrm s
+.\tenrm e
+.\tenrm n
+.\kern-0.27779
+.\tenrm t
+.etc.
+
+
+Overfull \hbox (31.955pt too wide) in paragraph at lines 511--518
+\tenrm reads the re-quired num-ber of char-ac-ters from \tentt stdin\tenrm , an
+d pop-u-lates the \tentt *form-data-table*
+
+\hbox(6.94444+1.94444)x361.34999, glue set - 1.0
+.\tenrm r
+.\tenrm e
+.\tenrm a
+.\tenrm d
+.\tenrm s
+.etc.
+
+
+Overfull \hbox (24.7052pt too wide) in paragraph at lines 519--526
+[]\tenrm It re-mains to re-trieve the val-ues for spe-cific pa-ram-e-ters from 
+the \tentt *form-data-table*\tenrm .
+
+\hbox(6.94444+1.94444)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm I
+.\tenrm t
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm r
+.etc.
+
+[78]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 575--576
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `cgicalc.scm'.
+
+[79]
+Underfull \vbox (badness 10000) has occurred while \output is active
+\vbox(643.20255+2.22223)x361.34999
+.\glue(\topskip) 3.05556
+.\hbox(6.94444+0.8333)x361.34999, glue set 273.10059fil
+..\hbox(0.0+0.0)x20.0
+..\glue 5.24995
+..\glue 5.24995
+..\glue 5.24995
+..\glue 5.24995
+..etc.
+.\glue(\parskip) 0.0
+.\glue(\baselineskip) 4.22226
+.\hbox(6.94444+0.8333)x361.34999, glue set 273.10059fil
+..\hbox(0.0+0.0)x20.0
+..\glue 5.24995
+..\glue 5.24995
+..\glue 5.24995
+..\glue 5.24995
+..etc.
+.etc.
+
+ [80])
+(dialect.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [81] (Z-sec-temp.tex)
+Overfull \hbox (100.6749pt too wide) in paragraph at lines 19--31
+\tenrm and for shell scripts), \tentt define-macro\tenrm , \tentt delete-file\t
+enrm , \tentt file-exists?\tenrm , \tentt file-or-directory-modify-seconds\tenr
+m ,
+
+\hbox(7.5+2.5)x361.34999, glue set - 1.0
+.\tenrm a
+.\tenrm n
+.\tenrm d
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm f
+.etc.
+
+
+Overfull \hbox (24.53583pt too wide) in paragraph at lines 19--31
+\tentt fluid-let\tenrm , \tentt gensym\tenrm , \tentt getenv\tenrm , \tentt get
+-output-string\tenrm , \tentt load-relative\tenrm , \tentt open-input-string\te
+nrm ,
+
+\hbox(6.11111+2.22223)x361.34999, glue set - 1.0
+.\tentt f
+.\tentt l
+.\tentt u
+.\tentt i
+.\tentt d
+.etc.
+
+62: Unresolved label `references'.
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[82]
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+146: Undefined citation `gauche'. 167: Undefined citation `stk'.
+\openout0 = `Z-sec-temp.tex'.
+
+
+(Z-sec-temp.tex) 184: Undefined citation `bigloo'.
+185: Undefined citation `chicken'. 186: Undefined citation `gambit'.
+187: Undefined citation `pocketscheme'.
+Overfull \hbox (2.41344pt too wide) in paragraph at lines 180--191
+\tenrm Chicken [[] \tentt chicken \tenrm ], Gam-bit [[] \tentt gambit \tenrm ],
+ Gauche [[] \tentt gauche \tenrm ], Guile, MzScheme and Pocket
+
+\hbox(7.5+2.5)x361.34999, glue set - 1.0
+.\tenrm C
+.\tenrm h
+.\tenrm i
+.\tenrm c
+.\kern-0.27779
+.etc.
+
+200: Undefined citation `mitscheme'. [83] 221: Undefined citation `scm'.
+221: Undefined citation `kawa'.
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 243--244
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[84]) (dos.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [85] (Z-sec-temp.tex) [86]) (numint.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [87] (Z-sec-temp.tex)
+\openout0 = `Z-sec-temp.tex'.
+
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+\openout5 = `numint.mp'.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active
+\vbox(643.20255+2.5)x361.34999, glue set 75.44049
+.\glue(\topskip) 10.0
+.\hbox(0.0+0.0)x0.0
+.\glue 30.00005
+.\glue(\parskip) 0.0 plus 1.0
+.\glue(\baselineskip) 5.05556
+.etc.
+
+ [88]
+Overfull \vbox (7.21994pt too high) has occurred while \output is active
+\vbox(643.20255+0.0)x361.34999
+.\glue(\topskip) 0.0
+.\hbox(650.42249+0.0)x361.34999, glue set - 54.1998fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+..\hbox(650.42249+0.0)x469.74957
+...\vbox(650.42249+0.0)x469.74957, glue set 650.42249fil []
+..\glue 0.0 plus 1.0fil minus 1.0fil
+
+
+[89]
+\openout5 = `simpson.scm'.
+
+
+Overfull \hbox (67.13939pt too wide) in paragraph at lines 178--187
+\tenrm ev-ery other or-di-nate. So let's de-fine a lo-cal pro-ce-dure \tentt su
+m-every-other-ordinate-starting-from
+
+\hbox(6.94444+2.22223)x361.34999, glue set - 1.0
+.\tenrm e
+.\discretionary replacing 2
+..\tenrm v
+..\tenrm -
+.\tenrm v
+.\kern-0.27779
+.\tenrm e
+.etc.
+
+[90]
+Overfull \hbox (5.62256pt too wide) in paragraph at lines 252--255
+[][][]\tenrm If Scheme didn't have the \tentt atan \tenrm pro-ce-dure, we could
+ use our numerical-integration
+
+\hbox(8.5+1.94444)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\hbox(8.14003+0.0)x0.0, glue set - 13.47226fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+..\mathon
+..\hbox(4.51111+0.0)x8.47226, shifted -3.62892
+...\sevenrm 1
+...\sevenrm 4
+..\mathoff
+..\kern 5.0
+.\vbox(8.5+0.0)x0.0
+.\tenrm I
+.\tenrm f
+.etc.
+
+269: Undefined citation `hmf'.
+Overfull \hbox (20.51085pt too wide) in paragraph at lines 271--274
+\tenrm of the in-te-grand, we could speed up the or-di-nate cal-cu-la-tions wit
+hin \tentt integrate-simpson\tenrm .| 
+
+\hbox(8.5+3.5)x361.34999, glue set - 1.0
+.\tenrm o
+.\tenrm f
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.\tenrm t
+.\tenrm h
+.etc.
+
+\openout0 = `Z-sec-temp.tex'.
+
+(Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[91]
+Overfull \hbox (57.84416pt too wide) in paragraph at lines 300--306
+\tenrm Here we cal-cu-late suc-ces-sive Simp-son in-te-grals (us-ing our orig-i
+-nal pro-ce-dure \tentt integrate-simpson\tenrm )
+
+\hbox(7.5+2.5)x361.34999, glue set - 1.0
+.\tenrm H
+.\tenrm e
+.\tenrm r
+.\tenrm e
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.etc.
+
+[92] (gamma.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+[93] [94])) (clock.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [95] (Z-sec-temp.tex)
+\openout5 = `guile-clock.scm'.
+
+ [96] [97]
+Overfull \hbox (4.02928pt too wide) in paragraph at lines 156--159
+[]\tenrm The \tentt clock \tenrm pro-ce-dure takes two ar-gu-ments. If the firs
+t ar-gu-ment is \tentt set-handler\tenrm ,
+
+\hbox(6.94444+1.94444)x361.34999, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm T
+.\tenrm h
+.\tenrm e
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.etc.
+
+) (ref.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [98] (Z-sec-temp.tex)) (indexf.tex
+\openout0 = `Z-sec-temp.tex'.
+
+ [99] (Z-sec-temp.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--2
+
+
+\hbox(0.0+0.0)x361.34999
+.\glue(\rightskip) 0.0
+
+t-y-scheme.ind missing.) [100] )
+Output written on t-y-scheme.dvi (100 pages, 231652 bytes).

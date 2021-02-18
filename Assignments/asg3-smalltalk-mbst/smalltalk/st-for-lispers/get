@@ -1,0 +1,4 @@
+url=\
+http://live.exept.de/doc/online/english/programming/stForLispers.html
+lynx -dump $url >stForLispers.txt
+lynx -source $url >stForLispers.html

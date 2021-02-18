@@ -1,0 +1,3 @@
+
+(load-relative "defstruct.scm")
+

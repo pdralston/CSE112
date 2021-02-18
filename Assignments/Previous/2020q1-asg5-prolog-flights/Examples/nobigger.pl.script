@@ -1,0 +1,45 @@
+Script started on Wed 02 Dec 2020 07:47:10 PM PST
+[?1034h============================================================== (unix1) 07:47 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 56$ cat -n nobigger.pl
+     1	% $Id: nobigger.pl,v 1.5 2020-02-26 16:09:45-08 - - $ */
+     2	
+     3	%
+     4	% Sample of the use of tracing.
+     5	% Find the biggest number in a list.
+     6	%
+     7	
+     8	mynumber( 3 ).
+     9	mynumber( 6 ).
+    10	mynumber( 9 ).
+    11	
+    12	biggest( Number ) :- mynumber( Number ), nobigger( Number ).
+    13	
+    14	nobigger( Number ) :- mynumber( Other ), Other > Number, !, fail.
+    15	
+    16	nobigger( _ ).
+    17	
+    18	% TEST: biggest(N).
+============================================================== (unix1) 07:47 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 57$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [nobigger][nobigger].
+true.
+
+?- biggest(N)(N).
+N = 9.
+
+?- ^D
+% halt
+============================================================== (unix1) 07:47 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 58$ exit
+
+Script done on Wed 02 Dec 2020 07:47:49 PM PST

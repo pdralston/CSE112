@@ -1,0 +1,4 @@
+#!/bin/sh  -x
+# $Id: mk,v 1.1 2020-01-22 15:41:47-08 - - $
+cid -is README.text
+txt2html README.text

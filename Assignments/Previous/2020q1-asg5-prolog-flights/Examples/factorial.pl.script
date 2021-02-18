@@ -1,0 +1,43 @@
+Script started on Wed 02 Dec 2020 07:41:52 PM PST
+[?1034h============================================================== (unix1) 07:41 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 50$ cat -n factorial.pl
+     1	% $Id: factorial.pl,v 1.4 2020-02-26 16:16:53-08 - - $ */
+     2	
+     3	%
+     4	% Factorial, the old intro to recursion standby.
+     5	%
+     6	
+     7	factorial( 0, 1).
+     8	
+     9	factorial( N, Nfac) :-
+    10		M is N - 1,
+    11		factorial( M, Mfac),
+    12		Nfac is N * Mfac.
+    13	
+============================================================== (unix1) 07:42 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 51$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [factorial][factorial].
+true.
+
+?- factorial(5,N)(5,N).
+N = 120 .
+
+?- factorial(10,N)(10,N).
+N = 3628800 .
+
+?- ^D
+% halt
+============================================================== (unix1) 07:42 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 52$ exit
+
+Script done on Wed 02 Dec 2020 07:42:32 PM PST

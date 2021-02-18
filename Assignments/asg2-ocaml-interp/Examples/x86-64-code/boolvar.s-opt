@@ -1,0 +1,33 @@
+... (* $Id: boolvar.s-opt,v 1.1 2021-01-26 00:20:10-08 - - $ *)
+... 
+... let flag : bool ref = ref false;;
+... flag := true;;
+... 
+... if !flag then (
+...    Printf.printf "Flag is true\n";
+... );;
+
+camlBoolopttest__entry:
+        subq    $8, %rsp
+.L102:
+        call    caml_alloc1@PLT
+.L103:
+        leaq    8(%r15), %rax
+        movq    $1024, -8(%rax)
+        movq    $1, (%rax)
+        movq    camlBoolopttest@GOTPCREL(%rip), %rbx
+        movq    %rax, (%rbx)
+        movq    (%rbx), %rax
+        movq    $3, (%rax)
+        movq    (%rbx), %rax
+        movq    (%rax), %rax
+        cmpq    $1, %rax
+        movq    camlBoolopttest__4@GOTPCREL(%rip), %rbx
+        movq    camlStdlib@GOTPCREL(%rip), %rax
+        movq    304(%rax), %rax
+        call    camlStdlib__printf__fprintf_166@PLT
+.L100:
+.L101:
+        movq    $1, %rax
+        addq    $8, %rsp
+        ret

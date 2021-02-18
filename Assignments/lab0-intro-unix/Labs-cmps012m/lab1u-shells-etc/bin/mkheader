@@ -1,0 +1,494 @@
+#!/usr/bin/perl
+# $Id: mkheader,v 1.201 2020-12-01 15:03:46-08 - - $
+#
+# NAME
+#    mkheader - make header for root of course directory
+#
+# SYNOPSIS
+#    mkheader
+#
+# DESCRIPTION
+#    Reads in the file README.txt and tries to detect all due dates
+#    with leading text of the form Ddd Mmm Nn, sorts them into order
+#    by date, assuming the current year and makes a header file
+#    HEADER.html to appear ahead of the default directory listing.
+#    Output in the current directory.
+#
+
+use lib "/afs/cats.ucsc.edu/courses/cse110a-wm/bin/perl5lib";
+
+use strict;
+use warnings;
+
+use Getopt::Std;
+use HTTP::Date qw (str2time);
+use List::Util qw (max);
+use POSIX qw (strftime);
+use HTML_Colors;
+
+my $status = 0;
+$SIG{'__WARN__'} = sub {print STDERR @_; $status = 1; };
+$SIG{'__DIE__'} = sub {warn @_; exit 1; };
+
+my $FLAG_SHOW_MONTHS = 1;
+my $FLAG_MIN_ROWS = 0;
+my $FLAG_DEBUG = 0;
+
+my $daylen = 24 * 60 * 60;
+my %months = qw (Jan 0 Feb 1 Mar 2 Apr 3 May 4 Jun 5
+                 Jul 6 Aug 7 Sep 8 Oct 9 Nov 10 Dec 11);
+my $monthpat = join "|", keys %months;
+my $daypat = join "|", qw (Sun Mon Tue Wed Thu Fri Sat);
+my $datepat = qr {(\.\s+($daypat)\s+($monthpat)\s+(\d+)\.)(.*)};
+my $maybedate = qr {(\.\s+(\w{3})\s+(\w{3})\s+(\d+)\.)(.*)};
+my $timenow = $^T;
+my @localtime_now = localtime $timenow;
+my $year_now = strftime "%Y", @localtime_now;
+my $sec_180days = 180 * 24 * 3600;
+
+sub yearweek(@) {
+   my @time = @_;
+   my $year = strftime "%Y", @time;
+   my $week = strftime "%U", @time;
+   my $dayofweek = strftime "%w", @time;
+   my $yearweek = "$year/$week";
+   if ($week eq "00" and $year > $year_now and $dayofweek > 0) {
+      my @previous = gmtime str2time "Dec 31 $year_now";
+      $yearweek = strftime "%Y/%U", @previous;
+   }
+   return $yearweek;
+}
+
+$0 =~ s|.*/||;
+@ARGV == 0 or die "Usage: $0\n";
+
+my $PWD = $ENV{PWD} || qx(pwd);
+chomp $PWD;
+my $URL = qx(pwd2url);
+chomp $URL;
+my $TITLE = $PWD;
+$TITLE =~ s|/afs/cats.ucsc.edu/courses/|~|;
+print "$0: $TITLE\n";
+
+my %COLOR = HTML_Colors;
+
+# my %COLOR = (
+# 
+#    BDR_DATA   => "#00FFFF", # cyan
+#    BDR_DUE    => "#FFFF00", # yellow
+#    BDR_EMPTY  => "#00FF00", # green
+#    BDR_EXAM   => "#FF0000", # red
+#    BG_DATA    => "#007F7F", # dark cyan
+#    BG_DUE     => "#7F7F00", # dark yellow
+#    BG_EMPTY   => "#000000", # black
+#    BG_EXAM    => "#7F0000", # dark red
+#    FG_HOVER   => "#FF0000", # red
+#    FG_LINK    => "#FFFF00", # yellow
+#    FG_PLAIN   => "#00FF00", # green
+#    FG_VISITED => "#00FFFF", # cyan
+# 
+# );
+
+sub magstep($) {
+   my ($step) = @_;
+   return 1.2 ** $step;
+}
+
+my $BODY_font_size_em = magstep 0;
+my $DIV_CLOCK_font_size_em = magstep 2;
+my $DIV_CLOCK_margin_right_ch = 1;
+my $DIV_CLOCK_padding_top_ex = 0.5;
+my $DIV_PWD_URL_font_size_em = magstep 0;
+my $DIV_SEPARATOR_size_ex = magstep 6;
+my $DIV_TITLE_font_size_em = magstep 5.5;
+my $TABLE_border_size_ch = 0.2;
+my $TD_border_size_ch = 0.2;
+my $TD_padding_LR_size_ch = 0.4;
+my $TD_padding_TB_size_ex = 0.2;
+my $TD_size_ch = 10;
+
+my $DIV_SEPARATOR_width_ch = 7 * ($TD_size_ch
+                                  + 2 * $TD_padding_LR_size_ch
+                                  + 2 * $TD_border_size_ch);
+
+my $html_head = <<____END_HTML_HEAD____;
+   <TITLE>$TITLE</TITLE>
+   <SCRIPT>
+   function clock() {
+      var date = new Date();
+      var time = date.toLocaleTimeString().replace (/:\\d\\d\\s/, " ");
+      document.getElementById("clock").innerHTML = time;
+      setTimeout (clock, 10 * 1000);
+   }
+   setTimeout (clock, 1);
+   </SCRIPT>
+   <STYLE>
+   BODY {
+      font-size: ${BODY_font_size_em}em;
+      font-family: monospace;
+      color: $COLOR{FG_PLAIN} !important;
+      background-color: $COLOR{BG_EMPTY} !important;
+   }
+   DIV.CLOCK {
+      font-size: ${DIV_CLOCK_font_size_em}em;
+      margin-right: ${DIV_CLOCK_margin_right_ch}ch;
+      text-align: right;
+      font-weight: bold;
+      padding-top: ${DIV_CLOCK_padding_top_ex}ex;
+   }
+   DIV.PWD_URL {
+      font-size: ${DIV_PWD_URL_font_size_em}em;
+      margin-left: 0;
+      font-weight: bold;
+   }
+   A:link {color: $COLOR{FG_LINK}}
+   A:visited {color: $COLOR{FG_VISITED}}
+   A:hover {color: $COLOR{FG_HOVER}}
+   </STYLE>
+____END_HTML_HEAD____
+
+my $html_title_table = <<____END_HTML_TITLE_TABLE____;
+   <SCRIPT>
+   function date_time() {
+      var date = new Date();
+      var day = date.toDateString().replace (/ \\d{4}\$/, ",\$&")
+                                   .replace (/\\s+0/, " ");; 
+      var time = date.toLocaleTimeString();
+      var display = (day + " @ " + time).replace (/\\s+/, " ");;
+      document.getElementById("date_time").innerHTML = display;
+      setTimeout (date_time, 0.25 * 1000);
+   }
+   setTimeout (date_time, 1);
+   </SCRIPT>
+   <STYLE>
+   DIV.TITLE {
+      font-size: ${DIV_TITLE_font_size_em}em;
+      font-family: serif;
+      margin-left: 0;
+      font-weight: bold;
+   }
+   DIV.SEPARATOR {
+      font-size: ${BODY_font_size_em}em;
+      height: ${DIV_SEPARATOR_size_ex}ex;
+      width: ${DIV_SEPARATOR_width_ch}ch;
+      background-color: $COLOR{FG_PLAIN};
+   }
+   DIV.MONTH {
+      height: ${TD_padding_TB_size_ex}ex;
+   }
+   TABLE {
+      font-size: ${BODY_font_size_em}em;
+      table-layout: fixed;
+      border-style: solid;
+      border-width: ${TABLE_border_size_ch}ch;
+      border-color: $COLOR{BDR_EMPTY};
+      border-spacing: 0;
+   }
+   TD {
+      font-size: ${BODY_font_size_em}em;
+      border-style: solid;
+      border-width: ${TD_border_size_ch}ch;
+      border-color: $COLOR{BDR_EMPTY};
+      padding-top: ${TD_padding_TB_size_ex}ex;
+      padding-bottom: ${TD_padding_TB_size_ex}ex;
+      padding-left: ${TD_padding_LR_size_ch}ch;
+      padding-right: ${TD_padding_LR_size_ch}ch;
+      vertical-align: top;
+      width: ${TD_size_ch}ch;
+   }
+   TD.EXAM {
+      border-color: $COLOR{BDR_EXAM};
+      background-color: $COLOR{BG_EXAM};
+   }
+   TD.DUE {
+      border-color: $COLOR{BDR_DUE};
+      background-color: $COLOR{BG_DUE};
+   }
+   TD.DATA {
+      border-color: $COLOR{BDR_DATA};
+      background-color: $COLOR{BG_DATA};
+   }
+   </STYLE>
+____END_HTML_TITLE_TABLE____
+
+map {s/^\s{3}//mg} $html_head, $html_title_table;
+
+sub print_html_head ($;$) {
+   my ($htmlfile, $want_title_table) = @_;
+   print $htmlfile "<HEAD>\n";
+   print $htmlfile $html_head;
+   print $htmlfile $html_title_table if $want_title_table;
+   print $htmlfile "</HEAD>\n";
+}
+
+sub print_clock ($) {
+   my ($htmlfile) = @_;
+   print $htmlfile "<DIV class=\"CLOCK\">\n";
+   print $htmlfile "<SPAN id=\"clock\">&nbsp;</SPAN>\n";
+   print $htmlfile "</DIV>\n";
+}
+
+sub print_pwd_url($) {
+   my ($htmlfile) = @_;
+   print $htmlfile "<DIV class=\"PWD_URL\">\n";
+   print $htmlfile "<BR>PWD: $PWD\n";
+   print $htmlfile "<BR>URL: <A HREF=$URL>$URL</A>\n";
+   print $htmlfile "</DIV>\n";
+}
+
+my $readmename = "README.txt";
+my $readme_opened = open README, "<$readmename";
+my $headerhtml = "HEADER.html";
+my $headertxt = "HEADER.txt";
+unless (defined $readme_opened) {
+   open my $HDRHTML, ">$headerhtml" or die "$0: $headerhtml: $!\n";
+   print_html_head $HDRHTML;
+   print $HDRHTML "<BODY>\n";
+   print_clock $HDRHTML;
+   print_pwd_url $HDRHTML;
+   print $HDRHTML "</BODY>\n";
+   close $HDRHTML;
+   unlink $headertxt or warn "$0: $headertxt: $!\n" if -e $headertxt;
+   exit;
+}
+
+my %duedates;
+my $rcsid = "";
+my $quarter = "";
+my $course_name = "";
+my $lectures = "";
+my @registrar;
+my $first_time = 1e300;
+my $last_time = 0;
+my %calendar;
+my %month_name;
+my $first_month_name;
+
+while (defined (my $line = <README>)) {
+   $rcsid = $& and next if $line =~ m/\$(Id): .*?\$/;
+   $quarter = $1 and next if $line =~ m/\.\s+Quarter:\s+(.*?)\s*$/;
+   $course_name = $1 and next if $line =~ m/\.\s+Course:\s+(.*?)\s*$/;
+   $lectures = $1 and next if $line =~ m/\.\s+Lectures:\s+(.*?)\s*$/;
+   push @registrar, $& if $line =~ m|https://registrar\.ucsc\.edu/\S+|;
+   if ($line =~ m/$datepat/) {
+      my ($date, $wday, $month, $mday, $item) = ($1, $2, $3, $4, $5);
+      my $trydate = "$month 1 $year_now";
+      my $trytime = str2time $trydate;
+      my $newyear = $year_now + ($trytime < $^T - $sec_180days);
+      my $duedate = "$month $mday $newyear";
+      my $duetime = str2time $duedate;
+      $first_time = $duetime if $first_time > $duetime;
+      $last_time = $duetime if $last_time < $duetime;
+      print "$duedate - not a valid date\n" and next unless $duetime;
+      my @localduetime = localtime $duetime;
+      my $chkwday = strftime "%a", @localduetime;
+      if ($wday ne $chkwday) {
+         $duedates{$date} = "$date is really $chkwday";
+         warn "$duedates{$date}\n";
+      }
+      my $duetimekey = strftime "%Y-%m-%d", @localduetime;
+      push @{$duedates{$duetimekey}}, "$date$item\n";
+      my $yearweek = yearweek @localduetime;
+      my $daynum = strftime "%w", @localduetime;
+      my $caldate = strftime "%a %b %d", @localduetime;
+      $calendar{$yearweek}[$daynum][0] = $caldate;
+      push @{$calendar{$yearweek}[$daynum]}, $item;
+   }elsif ($line =~ m/$maybedate/) {
+      warn "$1 - not a valid date\n";
+   }
+}
+
+close README;
+exit $status if $status;
+
+print "$0: quarter: $quarter\n" if $FLAG_DEBUG;
+print "$0: course: $course_name\n" if $FLAG_DEBUG;
+print "$0: lectures: $lectures\n" if $FLAG_DEBUG;
+
+$first_time -= $daylen while $timenow < $first_time
+                         and $first_time <= $last_time;
+for (my $time = $first_time;
+     $time <= $last_time + $daylen / 2;
+     $time += $daylen) {
+   my @gmtime = gmtime $time;
+   my $yearweek = yearweek @gmtime;
+   my $daynum = strftime "%w", @gmtime;
+   my $caldate = strftime "%a %b %d", @gmtime;
+   $calendar{$yearweek}[$daynum] = [$caldate]
+          unless $calendar{$yearweek}[$daynum];
+   my $month_name = strftime "%B %Y", @gmtime;
+   $first_month_name = $month_name unless $first_month_name;
+   $month_name{$yearweek}[$daynum] = $month_name;
+}
+
+$rcsid =~ s/\$(Id): (.*?)(,v(\s+\S+){3}).*/$2$3/;
+
+sub urlify($) {
+   my ($line) = @_;
+   $line =~ s|https:([^,\s])+|<A HREF=$&>$&</A>|
+            unless $line =~ m|https:\S+\*|;
+   return $line;
+}
+
+open my $HDRHTML, ">$headerhtml" or die "$0: $headerhtml: $!\n";
+open my $HDRTXT, ">$headertxt" or die "$0: $headertxt: $!\n";
+
+sub print_both(@) {
+   my (@line) = @_;
+   for my $line (@line) {
+      print $HDRHTML urlify $line;
+      $line =~ s/<.*?>//g;
+      print $HDRTXT $line unless $line =~ m/^\s*$/;
+   }
+}
+
+sub ten_chars($) {
+   my ($chars) = @_;
+   $chars = substr $chars . " " x 10, 0, 10;
+   return $chars;
+}
+
+print_html_head $HDRHTML, $readme_opened;
+print $HDRHTML "<BODY>\n";
+#print_clock $HDRHTML;
+
+my $div_separator = "<BR>\n<DIV class=\"SEPARATOR\"></DIV>\n<BR>\n";
+if ($course_name) {
+   print $HDRHTML "<BR>\n";
+   print $HDRHTML "<DIV class=\"TITLE\">\n";
+   print $HDRHTML "<SPAN id=\"date_time\"></SPAN>\n";
+   print $HDRHTML "</DIV>\n";
+   print $HDRHTML $div_separator;
+   print $HDRHTML "<DIV class=\"TITLE\">\n";
+   my @course_info = split m/\s*:\s*/, $course_name;
+   push @course_info, $quarter if $quarter;
+   push @course_info, $lectures if $lectures;
+   print $HDRHTML "$_<BR>\n" for @course_info;
+   print $HDRHTML "</DIV>\n";
+   print $HDRHTML $div_separator;
+}
+
+print_pwd_url $HDRHTML;
+print $HDRTXT "PWD: $PWD\n";
+print $HDRTXT "URL: $URL\n";
+
+print $HDRHTML "<PRE>\n";
+print_both     @{$duedates{$_}} for sort keys %duedates;
+print $HDRTXT  "HEADER: HEADER.txt\n";
+print $HDRHTML urlify "HEADER: https:HEADER.html\n";
+print $HDRTXT  "README: $rcsid\n";
+$rcsid =~ s/\.txt,v/.html,v/;
+print $HDRHTML urlify "README: https:$rcsid\n";
+my $lecture_log = "Syllabus/README.txt";
+if (-r $lecture_log) {
+   print $HDRTXT "Lectures: $lecture_log\n";
+   print $HDRHTML urlify "Lectures: https:$lecture_log\n";
+}
+print_both     "Registrar: $_\n" for @registrar;
+print $HDRHTML "</PRE>\n";
+
+my $prev_month;
+sub print_month($) {
+   my ($month_name) = @_;
+   print $HDRHTML "$month_name\n";
+   print $HDRHTML "<DIV class=\"MONTH\"></DIV>\n";
+}
+
+sub separate_months ($$) {
+   my ($curr_month, $daynum) = @_;
+   $prev_month = $curr_month unless $prev_month;
+   if ($curr_month ne $prev_month) {
+      if ($daynum > 0) {
+         print $HDRHTML "<TD>\n</TD>\n" for $daynum .. 6;
+      }
+      print $HDRHTML "</TABLE>\n";
+      print $HDRHTML "</DIV>\n";
+      print $HDRHTML "<BR>\n";
+      print $HDRHTML "<DIV>\n";
+      print_month $curr_month;
+      print $HDRHTML "<TABLE>\n";
+      print $HDRHTML "<TD>\n</TD>\n" for 0 .. ($daynum - 1);
+      $prev_month = $curr_month;
+   }
+}
+
+if ($first_time <= $last_time) {
+   print $HDRHTML "<DIV>\n";
+   print_month $first_month_name if $FLAG_SHOW_MONTHS;
+   print $HDRHTML "<TABLE>\n";
+   for my $yearweek (sort keys %calendar) {
+      print $HDRHTML "<TR>\n";
+      for my $daynum (0..6) {
+         my $data = $calendar{$yearweek}[$daynum];
+         my $month = $month_name{$yearweek}[$daynum];
+         print "{$yearweek}[$daynum] = [@$data] $month\n"
+               if $FLAG_DEBUG && $data;
+         my $htline = "";
+         my $td_tag = "<TD>\n";
+         if (defined $data) {
+            my ($date, @info) = @$data;
+            separate_months ($month, $daynum) if $FLAG_SHOW_MONTHS;
+            $date =~ s/\s/&nbsp;/g;
+            $date =~ s/&nbsp;0/&nbsp;&nbsp;/;
+            my $row_count = 1;
+            if (@info) {
+               $date = "<B>$date</B>";
+               for my $info (@info) {
+                  unless ($info =~ m/^\s*(.*?)\.\s*(https:\S+)?/) {
+                     print STDERR "$0: $info: match failed\n";
+                     next;
+                  };
+                  my ($item, $URL) = ($1, $2);
+                  my $shortitem = ten_chars $item;
+                  $shortitem =~ s/\s+$//;
+                  $shortitem =~ s/\s/&nbsp;/g;
+                  $shortitem = "<A HREF=$URL>$shortitem</A>"
+                          if $URL and $URL !~ m/\*$/;
+                  $shortitem = "<B>$shortitem</B>" if $URL;
+                  $htline .= "<BR>$shortitem\n";
+                  ++$row_count;
+                  my $td_class = "DATA";
+                  $td_class = "DUE" if $item =~m/LAB|ASG|DUE/;
+                  $td_class = "EXAM" if $item =~m/TEST|EXAM/;
+                  $td_tag = "<TD class=\"$td_class\">\n";
+               }
+            }
+            $htline = "$date\n" . $htline;
+            my $more_rows = $FLAG_MIN_ROWS - $row_count;
+            $htline .= "<BR>&nbsp;\n" x $more_rows;
+         }
+         print $HDRHTML "$td_tag$htline</TD>\n";
+      }
+      print $HDRHTML "</TR>\n";
+   }
+   print $HDRHTML "</TABLE>\n";
+   print $HDRHTML "</DIV>\n";
+}
+print $HDRHTML "</BODY>\n";
+
+if ($first_time <= $last_time) {
+   sub print_sep_line { print $HDRTXT "+----------" x 7, "+\n" }
+   for my $yearweek (sort keys %calendar) {
+      print_sep_line;
+      my $week = $calendar {$yearweek};
+      my $rowcount = max map {$_ && $#$_ || 0} @$week;
+      for my $row (0 .. $rowcount) {
+         for my $daynum (0..6) {
+            my $day = $week->[$daynum];
+            my $data = $day && $day->[$row] || "";
+            $data =~ s/^\s*(.*?)\..*/$1/;
+            $data =~ s/ 0(\d)/  $1/;
+            print $HDRTXT "|", ten_chars $data;
+         }
+         print $HDRTXT "|\n";
+      }
+   }
+   print_sep_line;
+}
+
+close $HDRHTML;
+close $HDRTXT;
+
+#system "ls -la $headerhtml $headertxt";
+#system "cat $headertxt";
+

@@ -1,0 +1,56 @@
+::::::::::::::
+synchclick.out1
+::::::::::::::
+main starting, count =               0, CYCLES = 100,000,000
+racer 0 starting, count =            0
+racer 1 starting, count =            0
+main finished, count =               0
+racer 3 starting, count =       72,407
+racer 2 starting, count =      119,012
+racer 2 finished, count =  375,201,874
+racer 1 finished, count =  394,263,834
+racer 3 finished, count =  399,879,351
+racer 0 finished, count =  400,000,000
+0:09.30 elapsed, 0.26 kernel, 9.58 user
+::::::::::::::
+synchclick.out2
+::::::::::::::
+main starting, count =               0, CYCLES = 100,000,000
+racer 0 starting, count =            0
+main finished, count =               0
+racer 1 starting, count =            0
+racer 3 starting, count =       82,214
+racer 2 starting, count =       85,499
+racer 1 finished, count =  368,204,715
+racer 3 finished, count =  392,732,081
+racer 0 finished, count =  394,254,037
+racer 2 finished, count =  400,000,000
+0:09.16 elapsed, 0.13 kernel, 9.35 user
+::::::::::::::
+synchclick.out3
+::::::::::::::
+main starting, count =               0, CYCLES = 100,000,000
+racer 0 starting, count =            0
+racer 1 starting, count =            0
+racer 2 starting, count =          908
+main finished, count =         171,275
+racer 3 starting, count =      216,528
+racer 0 finished, count =  377,803,229
+racer 1 finished, count =  389,390,539
+racer 3 finished, count =  396,441,174
+racer 2 finished, count =  400,000,000
+0:09.39 elapsed, 0.25 kernel, 9.56 user
+::::::::::::::
+synchclick.out4
+::::::::::::::
+main starting, count =               0, CYCLES = 100,000,000
+racer 0 starting, count =            0
+racer 2 starting, count =        2,491
+racer 1 starting, count =            0
+main finished, count =         138,625
+racer 3 starting, count =      150,593
+racer 0 finished, count =  364,915,216
+racer 1 finished, count =  389,013,242
+racer 2 finished, count =  395,950,245
+racer 3 finished, count =  400,000,000
+0:09.46 elapsed, 0.29 kernel, 9.78 user

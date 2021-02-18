@@ -1,0 +1,31 @@
+#!/bin/sh
+# $Id: redo-mkheaders,v 1.19 2020-12-21 13:12:48-08 - - $
+
+while getopts r opt
+do
+   case $opt in
+      r) recheaders=1;;
+      *) echo $(basename $0): $opt: invalid option; exit 1;;
+   esac
+done
+
+rootdirs="/afs/cats.ucsc.edu/courses/cse*-wm"
+nextdirs="/afs/cats.ucsc.edu/courses/cse*-wm/Next-quarter-*"
+for rootdir in $rootdirs $nextdirs
+do
+   if [ -d $rootdir ]
+   then
+      cd $rootdir
+      for readme in Readme.all.*.txt
+      do
+         if [ -e $readme ]
+         then
+            cid -is $readme
+            mkreadme $readme
+            mkheader
+         fi
+         [ -n "$recheaders" ] && mkrecheaders 
+      done
+   fi
+done
+

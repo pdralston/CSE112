@@ -1,0 +1,78 @@
+Script started on Wed 02 Dec 2020 08:45:32 PM PST
+[?1034h============================================================== (unix1) 08:45 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 66$ cat -n towers.pl
+     1	% $Id: towers.pl,v 1.4 2020-02-26 16:15:46-08 - - $ */
+     2	
+     3	%
+     4	% Towers problem.
+     5	%
+     6	
+     7	towers( N ) :-
+     8	   move( N, source, spare, target ).
+     9	
+    10	move( 0, _, _, _ ) :-
+    11	   !.
+    12	
+    13	move( N, Source, Spare, Target ) :-
+    14	   M is N - 1,
+    15	   move( M, Source, Target, Spare ),
+    16	   report( Source, Target ),
+    17	   move( M, Spare, Source, Target ).
+    18	
+    19	report( Source, Target ) :-
+    20	   write( 'Move a disk from the ' ),
+    21	   write( Source ),
+    22	   write( ' peg to the ' ),
+    23	   write( Target ),
+    24	   write( ' peg.'),
+    25	   nl.
+    26	
+============================================================== (unix1) 08:45 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 67$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [towers][towers].
+true.
+
+?- towes[Krs(3)(3).
+Move a disk from the source peg to the target peg.
+Move a disk from the source peg to the spare peg.
+Move a disk from the target peg to the spare peg.
+Move a disk from the source peg to the target peg.
+Move a disk from the spare peg to the source peg.
+Move a disk from the spare peg to the target peg.
+Move a disk from the source peg to the target peg.
+true.
+
+?- towers(4)(4).
+Move a disk from the source peg to the spare peg.
+Move a disk from the source peg to the target peg.
+Move a disk from the spare peg to the target peg.
+Move a disk from the source peg to the spare peg.
+Move a disk from the target peg to the source peg.
+Move a disk from the target peg to the spare peg.
+Move a disk from the source peg to the spare peg.
+Move a disk from the source peg to the target peg.
+Move a disk from the spare peg to the target peg.
+Move a disk from the spare peg to the source peg.
+Move a disk from the target peg to the source peg.
+Move a disk from the spare peg to the target peg.
+Move a disk from the source peg to the spare peg.
+Move a disk from the source peg to the target peg.
+Move a disk from the spare peg to the target peg.
+true.
+
+?- ^D
+% halt
+============================================================== (unix1) 08:46 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 68$ exit
+
+Script done on Wed 02 Dec 2020 08:46:03 PM PST

@@ -1,0 +1,16 @@
+#!/bin/sh
+# $Id: mk,v 1.2 2020-09-07 14:28:53-07 - - $
+
+name=angelfire-notes-smalltalk
+lynx -dont_wrap_pre \
+     -dump http://www.angelfire.com/tx4/cus/notes/smalltalk.html \
+     >$name.txt
+cid -is $name.txt
+
+enscript -fCourier10 -MLetter -GjC -r -p $name.ps \
+         -b "`pwd | sed 's|^/afs/cats.ucsc.edu/courses/|$$|'`/" \
+         $name.txt
+gv --scale=1.1 $name.ps &
+
+mkpdf $name.ps
+

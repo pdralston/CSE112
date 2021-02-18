@@ -1,0 +1,8 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting webserver.java
+webserver.java:
+     $Id: webserver.java,v 1.25 2018-05-29 18:28:09-07 - - $
+javac -Xlint webserver.java
+jar cfm webserver Manifest webserver$worker.class webserver.class
+chmod +x webserver
+rm -f webserver$worker.class webserver.class
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished webserver.java

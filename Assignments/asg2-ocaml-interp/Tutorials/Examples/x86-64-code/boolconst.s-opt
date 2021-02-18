@@ -1,0 +1,14 @@
+... (* $Id: boolconst.s-opt,v 1.1 2021-01-26 00:20:10-08 - - $ *)
+... 
+... let flag = false;;
+... 
+... if flag then (
+...    Printf.printf "Flag is true\n";
+... );;
+
+camlBoolopttest__entry:
+.L100:
+        movq    camlBoolopttest@GOTPCREL(%rip), %rax
+        movq    $1, (%rax)
+        movq    $1, %rax
+        ret

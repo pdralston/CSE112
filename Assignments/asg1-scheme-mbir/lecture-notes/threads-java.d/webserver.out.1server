@@ -1,0 +1,49 @@
+webserver: waiting for client
+webserver: socket.accept OK
+webserver: worker 1: starting
+RECD: GET /README.txt HTTP/1.0
+RECD: Host: localhost:6000
+RECD: Accept: text/html, text/plain, text/css, text/sgml, */*;q=0.01
+RECD: Accept-Language: en
+RECD: User-Agent: Lynx/2.8.8dev.15 libwww-FM/2.14 SSL-MM/1.4.1 OpenSSL/1.0.1e-fips
+RECD: 
+SENT: HTTP/1.1 200 OK
+SENT: Content-Type: text/html
+SENT: Content-Length: 188
+SENT: 
+SENT: <PRE>
+SENT: From HostName: unix4.lt.ucsc.edu
+SENT: From HostAddress: 128.114.104.57
+SENT: Page sent: 2018 May 29 Tue 18:28:19.835
+SENT: 
+SENT: This is a README file.
+SENT: 
+SENT: $Id: README.txt,v 1.1 2018-05-29 18:21:22-07 - - $
+webserver: worker 1: finished
+webserver: socket.accept OK
+webserver: worker 2: starting
+RECD: GET /README.html HTTP/1.0
+RECD: Host: localhost:6000
+RECD: Accept: text/html, text/plain, text/css, text/sgml, */*;q=0.01
+RECD: Accept-Language: en
+RECD: User-Agent: Lynx/2.8.8dev.15 libwww-FM/2.14 SSL-MM/1.4.1 OpenSSL/1.0.1e-fips
+RECD: 
+SENT: HTTP/1.1 200 OK
+SENT: Content-Type: text/html
+SENT: Content-Length: 282
+SENT: 
+SENT: <PRE>
+SENT: From HostName: unix4.lt.ucsc.edu
+SENT: From HostAddress: 128.114.104.57
+SENT: Page sent: 2018 May 29 Tue 18:28:19.863
+SENT: 
+SENT: <HEAD>
+SENT: <TITLE>README.html sample file</TITLE>
+SENT: </HEAD>
+SENT: <BODY>
+SENT: <P>
+SENT: This is a README file in HTML.
+SENT: <P>
+SENT: <TT>$Id: README.html,v 1.1 2018-05-29 18:21:22-07 - - $</TT>
+SENT: </BODY>
+webserver: worker 2: finished

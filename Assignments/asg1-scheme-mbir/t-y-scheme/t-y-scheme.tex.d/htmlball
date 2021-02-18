@@ -1,0 +1,3 @@
+rm -f t-y-scheme-html.tar*
+tar cf t-y-scheme-html.tar t-y-scheme*.html *.gif *.css
+gzip -f t-y-scheme-html.tar

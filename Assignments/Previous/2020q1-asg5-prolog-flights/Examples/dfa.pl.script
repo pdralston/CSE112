@@ -1,0 +1,85 @@
+Script started on Wed 02 Dec 2020 08:47:08 PM PST
+[?1034h============================================================== (unix1) 08:47 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 68$ cat -n dfa.pl
+     1	% $Id: dfa.pl,v 1.3 2020-02-26 16:17:56-08 - - $ */
+     2	
+     3	%
+     4	% DFA simulator.
+     5	% Simulates a DFA that accepts the language b*aa*b[ab]*
+     6	%
+     7	
+     8	%
+     9	% Facts describing the DFA.
+    10	% trans( source, label, dest).
+    11	%
+    12	
+    13	trans( 0, a, 1).
+    14	trans( 0, b, 0).
+    15	trans( 1, a, 1).
+    16	trans( 1, b, 2).
+    17	trans( 2, a, 2).
+    18	trans( 2, b, 2).
+    19	start( 0).
+    20	final( 2).
+    21	
+    22	%
+    23	% Functions for determining moves.
+    24	%
+    25	
+    26	match( String) :- start( State), move( State, String).
+    27	
+    28	move( From_state, []) :-
+    29		final( From_state), 
+    30		print_status( From_state, []).
+    31	
+    32	move( From_state, String) :-
+    33		[Head_string | Tail_string] = String, 
+    34		trans( From_state, Head_string, To_state), 
+    35		print_status( From_state, String), 
+    36		move( To_state, Tail_string).
+    37	
+    38	print_status( State, String) :-
+    39		write( State), write( ' '), write( String), nl.
+    40	
+    41	% TEST: match( [b, b, a, a, b, a, b]).
+    42	% TEST: match( [b, b, b, b]).
+    43	
+============================================================== (unix1) 08:47 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 69$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [dfa][dfa].
+true.
+
+?- match( [b, b, a, a, b, a, b][b, b, a, a, b, a, b])( [b, b, a, a, b, a, b]).
+0 [b,b,a,a,b,a,b]
+0 [b,a,a,b,a,b]
+0 [a,a,b,a,b]
+1 [a,b,a,b]
+1 [b,a,b]
+2 [a,b]
+2 [b]
+2 []
+true .
+
+?- match( [b, c[Kb, c[Kb, b][b, b, b, b])( [b, b, b, b]).
+0 [b,b,b,b]
+0 [b,b,b]
+0 [b,b]
+0 [b]
+false.
+
+?- ^D
+% halt
+============================================================== (unix1) 08:47 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 70$ exit
+
+Script done on Wed 02 Dec 2020 08:47:52 PM PST

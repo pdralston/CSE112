@@ -1,0 +1,20 @@
+... // $Id: cfacloop.s-opt,v 1.1 2021-01-26 00:20:10-08 - - $
+... long fac (long n) {
+...    long m = 1;
+...    while (n > 1) m *= n--;
+...    return m;
+... }
+
+fac:
+        movl    $1, %eax
+        cmpq    $1, %rdi
+        jle     .L4
+.L3:
+        imulq   %rdi, %rax
+        subq    $1, %rdi
+        cmpq    $1, %rdi
+        jne     .L3
+        ret
+.L4:
+        ret
+`

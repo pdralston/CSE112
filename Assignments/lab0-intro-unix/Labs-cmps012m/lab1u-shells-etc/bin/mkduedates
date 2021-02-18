@@ -1,0 +1,9 @@
+#!/bin/sh -x
+# $IdR
+for course in cse111 cse112
+do
+   cd /afs/cats.ucsc.edu/courses/$course-wm/
+   cid -is $0 Readme.all.$course.txt
+   mkreadme Readme.all.$course.txt
+   mkheader
+done

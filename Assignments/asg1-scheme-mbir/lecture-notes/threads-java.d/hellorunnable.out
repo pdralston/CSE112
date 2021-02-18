@@ -1,0 +1,26 @@
+     0.047: main(1): starting
+     9.085: Hello(8): starting
+     9.373: main(1): finished
+    10.368: World(9): starting
+   509.654: Hello(8): slept 500 msec, cycle 0
+   810.789: World(9): slept 800 msec, cycle 0
+  1010.289: Hello(8): slept 500 msec, cycle 1
+  1511.005: Hello(8): slept 500 msec, cycle 2
+  1611.429: World(9): slept 800 msec, cycle 1
+  2011.660: Hello(8): slept 500 msec, cycle 3
+  2412.081: World(9): slept 800 msec, cycle 2
+  2512.308: Hello(8): slept 500 msec, cycle 4
+  3012.982: Hello(8): slept 500 msec, cycle 5
+  3212.689: World(9): slept 800 msec, cycle 3
+  3513.579: Hello(8): slept 500 msec, cycle 6
+  4013.227: World(9): slept 800 msec, cycle 4
+  4014.102: Hello(8): slept 500 msec, cycle 7
+  4514.716: Hello(8): slept 500 msec, cycle 8
+  4813.786: World(9): slept 800 msec, cycle 5
+  5027.539: Hello(8): slept 500 msec, cycle 9
+  5035.969: Hello(8): finished
+  5614.382: World(9): slept 800 msec, cycle 6
+  6416.292: World(9): slept 800 msec, cycle 7
+  7216.916: World(9): slept 800 msec, cycle 8
+  8017.480: World(9): slept 800 msec, cycle 9
+  8017.876: World(9): finished

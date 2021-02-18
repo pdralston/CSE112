@@ -1,0 +1,216 @@
+\chapter{Scheme dialects}
+\label{dialect}
+
+All major Scheme dialects implement the R5RS
+specification \cite{r5rs}.  By using only the features
+documented in the R5RS, one can write Scheme code that
+is portable across the dialects.  However, the R5RS,
+either for want of consensus or because of inevitable
+system dependencies, remains silent on several matters
+that non-trivial programming cannot ignore.  The
+various dialects have therefore had to solve these
+matters in a non-standard and idiosyncratic manner.
+
+Four Scheme dialects are treated here, viz, Guile
+\cite{guile}, MzScheme \cite{mzscheme}, SCM
+\cite{scm}, and STk \cite{stk}.  We will only
+consider the set of non-standard features mentioned in
+this manual, viz, the shell-script mechanism,
+\q{define-macro}, \q{file-or-directory-modify-seconds},
+\q{fluid-let}, \q{getenv}, \q{load-relative},
+\q{read-line}, \q{reverse!}, \q{system}, \q{when}, and
+\q{unless}.  Further details about these Scheme
+dialects may be found at their respective pages.
+
+\section{Guile}
+
+To invoke the Guile Scheme listener,  type \p{guile}.
+
+Guile shell scripts can be written as follows:
+
+\q{
+":";exec guile -s $0 "$@"
+
+;... Scheme code goes here ...
+}
+
+In the script, the procedure-call \q{(command-line)} returns
+the list of the script's name and arguments.  To access
+just the arguments, take the cdr of this list.
+
+Guile loads, if available, the init file
+\p{.guile} in the user's home directory.
+
+The following definitions (which may be put in the init
+file) cover the non-standard features used in this manual:
+
+\q{
+(define load-relative
+  (lambda (f)
+    (let* ((n (string-length f))
+           (full-pathname?
+            (and (> n 0)
+                 (let ((c0 (string-ref f 0)))
+                   (or (char=? c0 #\/)
+                       (char=? c0 #\~))))))
+      (basic-load
+       (if full-pathname? f
+           (let ((clp (current-load-port)))
+             (if clp
+                 (string-append (dirname (port-filename clp)) "/" f)
+                 f)))))))
+
+(define-macro when
+  (lambda (t . ee)
+    `(if ,t (begin ,@ee))))
+
+(define-macro unless
+  (lambda (t . ee)
+    `(if (not ,t) (begin ,@ee))))
+
+(define-macro fluid-let
+  (lambda (xvxv . ee)
+    (let ((xx (map car xvxv))
+          (vv (map cadr xvxv))
+          (old-xx (map (lambda (ig) (gentemp)) xvxv))
+          (res (gentemp)))
+      `(let ,(map (lambda (old-x x) `(,old-x ,x)) old-xx xx)
+         ,@(map (lambda (x v)
+                  `(set! ,x ,v)) xx vv)
+         (let ((,res (begin ,@ee)))
+           ,@(map (lambda (x old-x) `(set! ,x ,old-x)) xx old-xx)
+           ,res)))))
+
+(define file-or-directory-modify-seconds
+  (lambda (f) (vector-ref (stat f) 9)))
+
+(define call/cc call-with-current-continuation)
+
+;Guile comes with define-macro, getenv, read-line, reverse!, system
+}
+
+\section{MzScheme}
+
+To invoke the MzScheme listener, type \p{mzscheme}.
+
+MzScheme shell scripts can be written as follows:
+
+\q{
+":";exec mzscheme -r $0 "$@"
+
+;... Scheme code goes here ...
+}
+
+In the script, the variable \q{argv} contains the
+vector ({\em not} list) of the script's arguments.
+
+MzScheme loads, if available, the file \p{.mzschemerc}
+in the user's home directory.
+
+\section{SCM}
+
+To invoke the SCM listener, type \p{scm}.
+
+SCM shell scripts can be written as follows:
+
+\q{
+":";exec scm -l $0 "$@"
+
+;... Scheme code goes here ...
+}
+
+In the script, the variable \q{*argv*} contains the
+list of the Scheme executable name, the script's name,
+the option \p{-l}, and the script's arguments.  To
+access just the arguments, take the cdddr of this list.
+
+SCM loads, if available, the init file \p{ScmInit.scm} in
+the user's home directory.
+
+The following definitions (which may be put in the init
+file) cover the non-standard features used in this
+manual:
+
+\q{
+(define load-relative
+  (lambda (f)
+    (let* ((n (string-length f))
+           (full-pathname?
+            (and (> n 0)
+                 (let ((c0 (string-ref f 0)))
+                   (or (char=? c0 #\/)
+                       (char=? c0 #\~))))))
+    (load (if (and *load-pathname* full-pathname?)
+              (in-vicinity (program-vicinity) f)
+              f)))))
+
+(define reverse!
+  (lambda (s)
+    (let loop ((s s) (r '()))
+      (if (null? s) r
+	  (let ((d (cdr s)))
+            (set-cdr! s r)
+	    (loop d s))))))
+
+(defmacro when ...) ;see Guile above
+
+(defmacro unless ...) ;see Guile above
+
+(define file-or-directory-modify-seconds ...) ;as for Guile above
+
+;SCM comes with fluid-let, getenv, read-line, system
+}
+
+\section{STk}
+
+To invoke the STk listener, type \p{snow}.  (This is
+the ``no window'' executable.)
+
+STk shell scripts can be written as follows:
+
+\q{
+":";exec snow -f $0 "$@"
+
+;... Scheme code goes here ...
+}
+
+In the script, the variable \q{*argv*} contains the
+list of the script's arguments.
+
+STk loads, if available, the init file \p{.stkrc} in
+the user's home directory.
+
+The following definitions (which may be put in the init
+file) cover the non-standard features used in this
+manual:
+
+\q{
+(define *load-pathname* #f)
+
+(define stk%load load)
+
+(define load-relative
+  (lambda (f)
+    (fluid-let ((*load-pathname*
+                 (if (not *load-pathname*) f
+                     (let* ((n (string-length f))
+                            (full-pathname?
+                             (and (> n 0)
+                                  (let ((c0 (string-ref f 0)))
+                                    (or (char=? c0 #\/)
+                                        (char=? c0 #\~))))))
+                       (if full-pathname? f
+                           (string-append (dirname *load-pathname*)
+                                          "/" f))))))
+      (stk%load *load-pathname*))))
+
+(define load
+  (lambda (f)
+    (error "Don't use load.  Use load-relative instead.")))
+
+(define reverse! ...) ;as for SCM above
+
+;file-or-directory-modify-seconds not definable for STk
+
+;STk comes with fluid-let, getenv, read-line, system, when, unless
+}

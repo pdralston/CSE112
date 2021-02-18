@@ -1,0 +1,16 @@
+     0.056: main(1): starting
+    13.188: observer(8): starting
+    13.984: main(1): finished
+    14.634: reporter(9): starting
+  1015.226: reporter(9): report   0: events:    78
+  2015.878: reporter(9): report   1: events:    91
+  3016.621: reporter(9): report   2: events:    83
+  4017.399: reporter(9): report   3: events:    96
+  5018.138: reporter(9): report   4: events:    92
+  6019.014: reporter(9): report   5: events:    91
+  7020.257: reporter(9): report   6: events:    77
+  8020.961: reporter(9): report   7: events:    88
+  9021.756: reporter(9): report   8: events:    93
+ 10022.385: reporter(9): report   9: events:    92
+ 10022.942: reporter(9): finished
+ 10023.554: observer(8): finished

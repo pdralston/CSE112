@@ -1,0 +1,7 @@
+\ifx\pdfoutput\Undefined
+\input epsf
+\else \input supp-pdf
+\def\epsfbox#1{\convertMPtoPDF{#1}{1}{1}}%
+\fi
+\epsfbox{simpson.1}
+\bye

@@ -1,0 +1,28 @@
+... (* $Id: length.s-tailrec,v 1.1 2021-01-26 00:20:10-08 - - $ *)
+... let length list =
+...     let rec len list sum = match list with
+...         | [] -> sum
+...         | _::xs -> len xs (sum + 1)
+...     in len list 0
+... 
+
+__length:
+        cmpq    $1, %rax
+        je      .L101
+        movq    $3, %rbx
+        movq    8(%rax), %rax
+        jmp     __len
+.L101:
+        movq    $1, %rax
+        ret
+__len:
+.L105:
+        cmpq    $1, %rax
+        je      .L104
+        addq    $2, %rbx
+        movq    8(%rax), %rax
+        jmp     .L105
+.L104:
+        movq    %rbx, %rax
+        ret
+

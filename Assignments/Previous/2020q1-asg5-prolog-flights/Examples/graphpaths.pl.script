@@ -1,0 +1,99 @@
+Script started on Wed 02 Dec 2020 10:08:34 PM PST
+[?1034h============================================================== (unix1) 10:08 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 70$ cat -n graphpaths.pl
+     1	% $Id: graphpaths.pl,v 1.5 2020-02-26 16:38:39-08 - - $ */
+     2	
+     3	%
+     4	% Define the links in the graph.
+     5	%
+     6	
+     7	link( a, b).
+     8	link( a, d).
+     9	link( b, c).
+    10	link( d, e).
+    11	link( e, c).
+    12	link( e, f).
+    13	link( f, a).
+    14	link( f, g).
+    15	link( f, j).
+    16	link( g, h).
+    17	link( h, i).
+    18	link( i, j).
+    19	
+    20	%
+    21	% Prolog version of not.
+    22	%
+    23	
+    24	not( X) :- X, !, fail.
+    25	not( _).
+    26	
+    27	%
+    28	% Is there a path from one node to another?
+    29	%
+    30	
+    31	ispath( L, L, _).
+    32	ispath( L, M, Path) :-
+    33	   link( L, X),
+    34	   not( member( X, Path)),
+    35	   ispath( X, M, [L|Path]).
+    36	
+    37	
+    38	%
+    39	% Find a path from one node to another.
+    40	%
+    41	
+    42	writeallpaths( Node, Node) :-
+    43	   write( Node), write( ' is '), write( Node), nl.
+    44	writeallpaths( Node, Next) :-
+    45	   listpath( Node, Next, [Node], List),
+    46	   write( Node), write( ' to '), write( Next), write( ' is '),
+    47	   writepath( List),
+    48	   fail.
+    49	
+    50	writepath( []) :-
+    51	   nl.
+    52	writepath( [Head|Tail]) :-
+    53	   write( ' '), write( Head), writepath( Tail).
+    54	
+    55	listpath( Node, End, Outlist) :-
+    56	   listpath( Node, End, [Node], Outlist).
+    57	
+    58	listpath( Node, Node, _, [Node]).
+    59	listpath( Node, End, Tried, [Node|List]) :-
+    60	   link( Node, Next),
+    61	   not( member( Next, Tried)),
+    62	   listpath( Next, End, [Next|Tried], List).
+    63	
+    64	
+    65	% TEST: writeallpaths(a,e).
+    66	% TEST: writeallpaths(a,j).
+============================================================== (unix1) 10:08 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 71$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [graphpaths][graphpaths].
+true.
+
+?- writeallpaths(a,e)(a,e).
+a to e is  a d e
+false.
+
+?- writeallpaths(a,j)(a,j).
+a to j is  a d e f g h i j
+a to j is  a d e f j
+false.
+
+?- ^D
+% halt
+============================================================== (unix1) 10:09 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 72$ exit
+
+Script done on Wed 02 Dec 2020 10:09:13 PM PST

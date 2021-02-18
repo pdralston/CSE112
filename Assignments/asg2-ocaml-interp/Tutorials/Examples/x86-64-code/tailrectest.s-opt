@@ -1,0 +1,38 @@
+... (* $Id: tailrectest.s-opt,v 1.1 2021-01-26 00:20:10-08 - - $ *)
+... (* Factorial example. *)
+... 
+... let rec fac' n' r' = match n' with
+...     | 0 -> r'
+...     | n -> fac' (n' - 1) (n' * r')
+... 
+... let fac n = fac' n 1;;
+... 
+... NOTE:  ASCII code for ' (apostrophe) is 27..... $27 above
+
+ZamlTailrectest__fac$27_80:
+.L102:
+        cmpq    $1, %rax
+        je      .L101
+        movq    %rbx, %rdi
+        sarq    $1, %rdi
+        movq    %rax, %rbx
+        decq    %rbx
+        imulq   %rdi, %rbx
+        incq    %rbx
+        addq    $-2, %rax
+        jmp     .L102
+.L101:
+        movq    %rbx, %rax
+        ret
+camlTailrectest__fac_84:
+        movq    $3, %rbx
+        jmp     camlTailrectest__fac$27_80@PLT
+camlTailrectest__entry:
+        movq    camlTailrectest__2@GOTPCREL(%rip), %rax
+        movq    camlTailrectest@GOTPCREL(%rip), %rbx
+        movq    %rax, (%rbx)
+        movq    camlTailrectest__1@GOTPCREL(%rip), %rax
+        movq    %rax, 8(%rbx)
+        movq    $1, %rax
+        ret
+

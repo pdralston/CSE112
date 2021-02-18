@@ -1,0 +1,15 @@
+(load-relative "simpson.scm")
+
+(define integrate-adaptive-simpson
+  (lambda (f a b e)
+    (let loop ((a a) (b b) (level 0))
+      (let ((i2 (f a b 2))
+            (i4 (f a b 4)))
+        (if (<= (abs (- i2 i4)) (/ e (expt 2 level)))
+            i4
+            (let ((c (/ (+ a b) 2))
+                  (level+1 (+ level 1)))
+              (+ (loop a c level+1) 
+                 (loop c b level+1)))))))) 
+
+

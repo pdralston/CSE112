@@ -1,0 +1,64 @@
+Script started on Wed 02 Dec 2020 07:37:13 PM PST
+[?1034h============================================================== (unix1) 07:37 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 48$ cat -n prologflags.pl
+     1	#!/usr/local/bin/swipl
+     2	% $Id: prologflags.pl,v 1.1 2020-12-02 19:37:03-08 - - $ */
+     3	
+     4	show( Flag) :-
+     5	    current_prolog_flag( Flag, Value),
+     6	    write( Flag), write( ': '), write( Value), nl.
+     7	
+     8	all :-
+     9	    show( arch),
+    10	    show( argv),
+    11	    show( c_cc),
+    12	    show( color_term),
+    13	    show( compiled_at),
+    14	    show( cpu_count),
+    15	    show( executable),
+    16	    show( home),
+    17	    show( os_argv),
+    18	    show( posix_shell),
+    19	    show( timezone),
+    20	    show( tmp_dir),
+    21	    show( unix),
+    22	    nl.
+    23	
+============================================================== (unix1) 07:37 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 49$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [prologflags][prologflags].
+true.
+
+?- all.
+arch: x86_64-linux
+argv: []
+c_cc: /usr/bin/cc
+color_term: false
+compiled_at: Sep 24 2019, 18:20:18
+cpu_count: 2
+executable: /usr/local/swipl/lib/swipl/bin/x86_64-linux/swipl
+home: /usr/local/swipl/lib/swipl
+os_argv: [swipl]
+posix_shell: /bin/sh
+timezone: 28800
+tmp_dir: /tmp
+unix: true
+
+true.
+
+?- ^D
+% halt
+============================================================== (unix1) 07:37 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 50$ exit
+
+Script done on Wed 02 Dec 2020 07:37:44 PM PST

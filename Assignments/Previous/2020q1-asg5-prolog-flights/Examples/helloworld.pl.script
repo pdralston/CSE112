@@ -1,0 +1,33 @@
+Script started on Wed 02 Dec 2020 07:33:29 PM PST
+[?1034h============================================================== (unix1) 07:33 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 46$ cat -n helloworld.pl
+     1	% $Id: helloworld.pl,v 1.6 2020-12-02 16:29:53-08 - - $ */
+     2	
+     3	hello :-
+     4	   write( 'Hello, World!' ), nl.
+     5	
+============================================================== (unix1) 07:33 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 47$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [helloworld][helloworld].
+true.
+
+?- hello.
+Hello, World!
+true.
+
+?- ^D
+% halt
+============================================================== (unix1) 07:33 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 48$ exit
+
+Script done on Wed 02 Dec 2020 07:33:58 PM PST

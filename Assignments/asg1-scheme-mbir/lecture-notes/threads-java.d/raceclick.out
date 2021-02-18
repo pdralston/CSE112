@@ -1,0 +1,56 @@
+::::::::::::::
+raceclick.out1
+::::::::::::::
+main starting, count =               0, CYCLES = 100,000,000
+racer 0 starting, count =            0
+racer 1 starting, count =       25,674
+racer 2 starting, count =   10,978,483
+main finished, count =      23,527,396
+racer 3 starting, count =   25,222,097
+racer 0 finished, count =  100,074,970
+racer 2 finished, count =  101,148,977
+racer 1 finished, count =  101,936,797
+racer 3 finished, count =  125,718,198
+0:00.28 elapsed, 0.03 kernel, 0.41 user
+::::::::::::::
+raceclick.out2
+::::::::::::::
+main starting, count =               0, CYCLES = 100,000,000
+racer 0 starting, count =            0
+racer 1 starting, count =       23,552
+racer 2 starting, count =    1,354,626
+main finished, count =      29,944,722
+racer 3 starting, count =   51,940,109
+racer 1 finished, count =   43,780,840
+racer 3 finished, count =   79,808,661
+racer 2 finished, count =  108,619,013
+racer 0 finished, count =  120,619,883
+0:00.29 elapsed, 0.02 kernel, 0.45 user
+::::::::::::::
+raceclick.out3
+::::::::::::::
+main starting, count =               0, CYCLES = 100,000,000
+racer 0 starting, count =            0
+racer 1 starting, count =            0
+racer 2 starting, count =        7,965
+main finished, count =         153,968
+racer 3 starting, count =      995,062
+racer 0 finished, count =   98,942,646
+racer 3 finished, count =  109,138,994
+racer 1 finished, count =  111,432,138
+racer 2 finished, count =  116,743,727
+0:00.33 elapsed, 0.02 kernel, 0.54 user
+::::::::::::::
+raceclick.out4
+::::::::::::::
+main starting, count =               0, CYCLES = 100,000,000
+racer 0 starting, count =            0
+main finished, count =               0
+racer 1 starting, count =            0
+racer 3 starting, count =      155,339
+racer 2 starting, count =    2,592,728
+racer 0 finished, count =   97,846,596
+racer 3 finished, count =   92,581,986
+racer 1 finished, count =  103,577,511
+racer 2 finished, count =  108,314,826
+0:00.42 elapsed, 0.02 kernel, 0.72 user

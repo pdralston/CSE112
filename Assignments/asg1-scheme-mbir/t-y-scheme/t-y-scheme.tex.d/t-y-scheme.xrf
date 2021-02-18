@@ -1,0 +1,31 @@
+\expandafter\gdef\csname XREFtocpage\endcsname{-}\relax
+\expandafter\gdef\csname XREFhello\endcsname{1}\relax
+\expandafter\gdef\csname XREFPAGEhello\endcsname{4}\relax
+\expandafter\gdef\csname XREFbooleans\endcsname{2.1.1}\relax
+\expandafter\gdef\csname XREFPAGEbooleans\endcsname{6}\relax
+\expandafter\gdef\csname XREFfluid-let\endcsname{5.2}\relax
+\expandafter\gdef\csname XREFPAGEfluid-let\endcsname{22}\relax
+\expandafter\gdef\csname XREFsugar\endcsname{8}\relax
+\expandafter\gdef\csname XREFPAGEsugar\endcsname{30}\relax
+\expandafter\gdef\csname XREFfluid-let-macro\endcsname{8.3}\relax
+\expandafter\gdef\csname XREFPAGEfluid-let-macro\endcsname{33}\relax
+\expandafter\gdef\csname XREFos\endcsname{11}\relax
+\expandafter\gdef\csname XREFPAGEos\endcsname{40}\relax
+\expandafter\gdef\csname XREFengine-clock\endcsname{15.1}\relax
+\expandafter\gdef\csname XREFPAGEengine-clock\endcsname{63}\relax
+\expandafter\gdef\csname XREFscript\endcsname{16}\relax
+\expandafter\gdef\csname XREFPAGEscript\endcsname{68}\relax
+\expandafter\gdef\csname XREFtestcgi2\endcsname{17.2}\relax
+\expandafter\gdef\csname XREFPAGEtestcgi2\endcsname{74}\relax
+\expandafter\gdef\csname XREFdialect\endcsname{\char 65}\relax
+\expandafter\gdef\csname XREFPAGEdialect\endcsname{82}\relax
+\expandafter\gdef\csname XREFdialect-macro\endcsname{\char 65.3}\relax
+\expandafter\gdef\csname XREFPAGEdialect-macro\endcsname{83}\relax
+\expandafter\gdef\csname XREFdos\endcsname{\char 66}\relax
+\expandafter\gdef\csname XREFPAGEdos\endcsname{86}\relax
+\expandafter\gdef\csname XREFnumint\endcsname{\char 67}\relax
+\expandafter\gdef\csname XREFPAGEnumint\endcsname{88}\relax
+\expandafter\gdef\csname XREFclock\endcsname{\char 68}\relax
+\expandafter\gdef\csname XREFPAGEclock\endcsname{96}\relax
+\expandafter\gdef\csname XREFreferences\endcsname{\char 69}\relax
+\expandafter\gdef\csname XREFPAGEreferences\endcsname{99}\relax

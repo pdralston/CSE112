@@ -1,0 +1,30 @@
+... // $Id: cfacrec.s-opt,v 1.1 2021-01-26 00:20:10-08 - - $
+... long fac2 (long n, long m) {
+...    if (n < 1L) return m;
+...    return fac2 (n - 1L, m * n);
+... }
+... long fac (long n) {
+...    return fac2 (n, 1L);
+... }
+
+fac2:
+        movq    %rsi, %rax
+        testq   %rdi, %rdi
+        jle     .L5
+.L2:
+        imulq   %rdi, %rax
+        subq    $1, %rdi
+        jne     .L2
+.L5:
+        ret
+fac:
+        movl    $1, %eax
+        testq   %rdi, %rdi
+        jle     .L10
+.L11:
+        imulq   %rdi, %rax
+        subq    $1, %rdi
+        jne     .L11
+.L10:
+        ret
+

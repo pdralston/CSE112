@@ -1,0 +1,139 @@
+Script started on Wed 02 Dec 2020 10:11:51 PM PST
+[?1034h============================================================== (unix1) 10:11 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 72$ ct -n       cat -n ap  mapcoloring.pl
+     1	% $Id: mapcoloring.pl,v 1.6 2020-12-02 16:29:53-08 - - $ */
+     2	
+     3	%
+     4	% Map coloring.
+     5	%
+     6	% Given an adjacency matrix, find a coloring of the map such
+     7	% that no two adjacent nodes have the same color.  The four
+     8	% color theorem says this is always possible with four colors.
+     9	%
+    10	
+    11	not( X) :- X, !, fail.
+    12	not( _).
+    13	
+    14	%
+    15	% Specification of the nodes in the graph and the paths.
+    16	%
+    17	
+    18	graph( [1,2,3,4,5]).
+    19	link( 1, 2).
+    20	link( 1, 3).
+    21	link( 1, 4).
+    22	link( 2, 3).
+    23	link( 2, 4).
+    24	link( 3, 4).
+    25	link( 4, 5).
+    26	
+    27	%
+    28	% Undirected graph, ajacency is bidirectional.
+    29	%
+    30	
+    31	adjacent( Node1, Node2) :- link( Node1, Node2).
+    32	adjacent( Node1, Node2) :- link( Node2, Node1).
+    33	
+    34	%
+    35	% Specifications of possible colors for the nodes.
+    36	%
+    37	
+    38	color( red).
+    39	color( green).
+    40	color( blue).
+    41	color( white).
+    42	
+    43	
+    44	%
+    45	% Find a coloring with no conflicts.
+    46	%
+    47	
+    48	findcoloring( [], []).
+    49	findcoloring( [Node | Nodes], [Coloring | Colorings]) :-
+    50	   findcoloring( Nodes, Colorings),
+    51	   Coloring = color( Node, Color),
+    52	   color( Color),
+    53	   noconflict( Coloring, Colorings).
+    54	
+    55	noconflict( _, []).
+    56	noconflict( Coloring1, [Coloring2 | Colorings]) :-
+    57	   not( conflict( Coloring1, Coloring2)),
+    58	   noconflict( Coloring1, Colorings).
+    59	
+    60	conflict( color( Node1, Color), color( Node2, Color)) :-
+    61	   adjacent( Node1, Node2).
+    62	
+    63	%
+    64	% Trace the relevant relations.
+    65	%
+    66	
+    67	traceon :-
+    68	   trace( adjacent),
+    69	   trace( color),
+    70	   trace( findcoloring),
+    71	   trace( noconflict),
+    72	   trace( conflict).
+    73	
+    74	writeallcolorings :-
+    75	   writeanycoloring,
+    76	   fail.
+    77	
+    78	writeanycoloring :-
+    79	   findanycoloring( Coloring),
+    80	   write( Coloring), nl.
+    81	
+    82	findanycoloring( Coloring) :-
+    83	   graph( Graph),
+    84	   findcoloring( Graph, Coloring).
+    85	
+    86	% TEST: writeallcolorings.
+============================================================== (unix1) 10:12 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 73$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [mapcoloring][mapcoloring].
+true.
+
+?- writeanycoloring.
+[color(1,white),color(2,blue),color(3,red),color(4,green),color(5,red)]
+true ;
+[color(1,blue),color(2,white),color(3,red),color(4,green),color(5,red)]
+true ;
+[color(1,white),color(2,red),color(3,blue),color(4,green),color(5,red)]
+true ;
+[color(1,red),color(2,white),color(3,blue),color(4,green),color(5,red)]
+true ;
+[color(1,blue),color(2,red),color(3,white),color(4,green),color(5,red)]
+true ;
+[color(1,red),color(2,blue),color(3,white),color(4,green),color(5,red)]
+true ;
+[color(1,white),color(2,green),color(3,red),color(4,blue),color(5,red)]
+true ;
+[color(1,green),color(2,white),color(3,red),color(4,blue),color(5,red)]
+true ;
+[color(1,white),color(2,red),color(3,green),color(4,blue),color(5,red)]
+true ;
+[color(1,red),color(2,white),color(3,green),color(4,blue),color(5,red)]
+true ;
+[color(1,green),color(2,red),color(3,white),color(4,blue),color(5,red)]
+true ;
+[color(1,red),color(2,green),color(3,white),color(4,blue),color(5,red)]
+true ;
+[color(1,blue),color(2,green),color(3,red),color(4,white),color(5,red)]
+true .
+
+?- 
+|    ^D
+% halt
+============================================================== (unix1) 10:12 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 74$ exit
+
+Script done on Wed 02 Dec 2020 10:12:37 PM PST

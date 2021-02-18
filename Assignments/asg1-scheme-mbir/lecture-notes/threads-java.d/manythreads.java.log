@@ -1,0 +1,8 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting manythreads.java
+manythreads.java:
+     $Id: manythreads.java,v 1.6 2018-05-17 16:21:50-07 - - $
+javac -Xlint manythreads.java
+jar cfm manythreads Manifest manythreads$printmsg.class manythreads.class
+chmod +x manythreads
+rm -f manythreads$printmsg.class manythreads.class
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished manythreads.java

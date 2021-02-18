@@ -1,0 +1,63 @@
+Script started on Wed 02 Dec 2020 07:44:06 PM PST
+[?1034h============================================================== (unix1) 07:44 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 54$ cat -n euclid.pl
+     1	% $Id: euclid.pl,v 1.3 2020-02-26 16:12:01-08 - - $
+     2	
+     3	% Euclid's algorithm for greatest common divisor.
+     4	% The C version:
+     5	% int gcd (int x, int y) {
+     6	%    while (x != y) if (x > y) x -= y; else y -= x;
+     7	%    return x;
+     8	% }
+     9	
+    10	gcd( X, Y, Z ) :- X > Y, T is X - Y, gcd( T, Y, Z ).
+    11	gcd( X, Y, Z ) :- X < Y, T is Y - X, gcd( X, T, Z ).
+    12	gcd( X, X, X ).
+    13	
+    14	trace( gcd ).
+    15	
+    16	% TEST: gcd( 111, 259, Z ).
+============================================================== (unix1) 07:44 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 55$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.0.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [eul[Kclid][euclid].
+true.
+
+?- trace(euclid/3,+all)(euclid/3,+all).
+ERROR: Undefined procedure: euclid/3 (DWIM could not correct goal)
+?- trace(gcd/3,+all)(gcd/3,+all).
+%         gcd/3: [call,redo,exit,fail]
+true.
+
+[debug]  ?- gcd(111,259,Z)(111,259,Z).
+ T Call: (8) gcd(111, 259, _9572)
+ T Redo: (8) gcd(111, 259, _9572)
+ T Call: (9) gcd(111, 148, _9572)
+ T Redo: (9) gcd(111, 148, _9572)
+ T Call: (10) gcd(111, 37, _9572)
+ T Call: (11) gcd(74, 37, _9572)
+ T Call: (12) gcd(37, 37, _9572)
+ T Redo: (12) gcd(37, 37, _9572)
+ T Redo: (12) gcd(37, 37, _9572)
+ T Exit: (12) gcd(37, 37, 37)
+ T Exit: (11) gcd(74, 37, 37)
+ T Exit: (10) gcd(111, 37, 37)
+ T Exit: (9) gcd(111, 148, 37)
+ T Exit: (8) gcd(111, 259, 37)
+Z = 37 .
+
+[debug]  ?- ^D
+% halt
+============================================================== (unix1) 07:45 PM
+/afs/cats.ucsc.edu/courses/cse112-wm/Languages/prolog/Examples/
+bash 56$ exit
+
+Script done on Wed 02 Dec 2020 07:45:39 PM PST

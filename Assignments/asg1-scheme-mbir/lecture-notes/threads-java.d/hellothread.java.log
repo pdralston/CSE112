@@ -1,0 +1,8 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting hellothread.java
+hellothread.java:
+     $Id: hellothread.java,v 1.2 2018-05-17 16:08:47-07 - - $
+javac -Xlint hellothread.java
+jar cfm hellothread Manifest hellothread$greeter.class hellothread.class
+chmod +x hellothread
+rm -f hellothread$greeter.class hellothread.class
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished hellothread.java
