@@ -1,4 +1,5 @@
-#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme -qr
+#!/bin/mzscheme -qr
+;; #!/afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme -qr
 ;; $Id: mbir.scm,v 1.9 2021-01-12 11:57:59-08 - - $
 ;;
 ;; NAME
@@ -30,6 +31,7 @@
         (eof  0.0)
         (nan  ,(/ 0.0 0.0))
         (pi   ,(acos -1.0))
+        (i     ,(sqrt -1))
     ))
 
 (define *RUN-FILE*
@@ -72,17 +74,41 @@
     (printf "(NOT-IMPLEMENTED: ~s ~s)" function args)
     (when (not (null? nl)) (printf "~n")))
 
+(define *functions* (make-hash))
+(for-each
+    (lambda (symfun) (hash-set! *functions* (car symfun) (cadr symfun)))
+    `(
+        (+    ,+)
+        (-    ,-)
+        (*    ,*)
+        (/    ,/)
+        (^    ,expt)
+        (sqrt ,sqrt)
+        (sqr  ,sqr)
+
+    ))
+(define NAN (/ 0.0 0.0))
+
 (define (eval-expr expr)
     (cond ((number? expr) (+ expr 0.0))
           ((symbol? expr) (hash-ref *var-table* expr 0.0))
-          (else (not-implemented 'eval-expr expr))))
+          ((pair? expr) 
+              (let ((func (hash-ref *functions* (car expr) #f))
+                    (opnds (map eval-expr (cdr expr))))
+                   (if (not func) NAN
+                       (apply func opnds))))
+          (else NAN)))
 
 (define (interp-dim args continuation)
     (not-implemented 'interp-dim args 'nl)
     (interp-program continuation))
 
 (define (interp-let args continuation)
-    (not-implemented 'interp-let args 'nl)
+    (cond ((not (symbol? (car args))) 
+              (print "Error invalid variable type")))
+    (let* ((value (eval-expr (cadr args)))
+           (varName (car args)))
+        (hash-set! *var-table* varName value))
     (interp-program continuation))
 
 (define (interp-goto args continuation)
@@ -152,6 +178,7 @@
                 (main (cdr arglist)))
           ((not (null? (cdr  arglist)))
                 (usage-exit))
+        ; let* allows multiple assignments mbprogfile and program
           (else (let* ((mbprogfile (car arglist))
                        (program (readlist mbprogfile)))
                 (begin (when *DEBUG* (dump-program mbprogfile program))
