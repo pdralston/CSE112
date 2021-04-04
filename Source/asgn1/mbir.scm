@@ -126,7 +126,15 @@
                    (interp-program continuation)))))
 
 (define (scan-for-labels program)
-    (not-implemented 'scan-for-labels '() 'nl))
+    (define (get-label line)
+        (and (not (null? line))
+             (not (null? (cdr line)))
+             (cadr line)))
+    (when (not (null? program))
+          (let ((label (get-label (car program))))
+               (when (symbol? label)
+                     (hash-set! *label-table* label program)))
+          (scan-for-labels (cdr program))))
 
 (define (readlist filename)
     (let ((inputfile (open-input-file filename)))
