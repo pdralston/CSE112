@@ -133,7 +133,7 @@
     (when (not (null? program))
           (let ((label (get-label (car program))))
                (when (symbol? label)
-                     (hash-set! *hash* label program)))
+                     (hash-set! *label-table* label program)))
           (scan-for-labels (cdr program))))
 
 (define (readlist filename)
