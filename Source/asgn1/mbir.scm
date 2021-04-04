@@ -107,7 +107,7 @@
         (tan   ,tan) 
         (trunc ,trunc)
     ))
-    
+
 (define NAN (/ 0.0 0.0))
 
 (define (eval-expr expr)
@@ -199,7 +199,6 @@
                 (main (cdr arglist)))
           ((not (null? (cdr  arglist)))
                 (usage-exit))
-        ; let* allows multiple assignments mbprogfile and program
           (else (let* ((mbprogfile (car arglist))
                        (program (readlist mbprogfile)))
                 (begin (when *DEBUG* (dump-program mbprogfile program))
