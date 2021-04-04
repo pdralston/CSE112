@@ -1,5 +1,5 @@
 #!/bin/mzscheme -qr
-;; #!/afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme -qr
+; #!/afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme -qr
 ;; $Id: mbir.scm,v 1.9 2021-01-12 11:57:59-08 - - $
 ;;
 ;; NAME
@@ -28,10 +28,10 @@
 (for-each (lambda (var) (hash-set! *var-table* (car var) (cadr var)))
    `(
         (e    ,(exp 1.0))
-        (eof  0.0)
+        (eof    0.0)
         (nan  ,(/ 0.0 0.0))
-        (pi   ,(acos -1.0))
-        (i     ,(sqrt -1))
+        (pi   ,(acos -1))
+        (i    ,(sqrt -1))
     ))
 
 (define *RUN-FILE*
@@ -75,29 +75,50 @@
     (when (not (null? nl)) (printf "~n")))
 
 (define *functions* (make-hash))
+
+(define (log10 value) (log value 10))
+
+(define (trunc value)
+    (cond
+        ((value > 0) (floor value))
+        ((value < 0) (ceiling value))))
+
 (for-each
     (lambda (symfun) (hash-set! *functions* (car symfun) (cadr symfun)))
     `(
-        (+    ,+)
-        (-    ,-)
-        (*    ,*)
-        (/    ,/)
-        (^    ,expt)
-        (sqrt ,sqrt)
-        (sqr  ,sqr)
-
+        (+     ,+)
+        (-     ,-)
+        (*     ,*)
+        (/     ,/)
+        (^     ,expt)
+        (abs   ,abs)
+        (acos  ,acos)
+        (asin  ,asin)
+        (atan  ,atan) 
+        (ceil  ,ceiling) 
+        (cos   ,cos) 
+        (exp   ,exp) 
+        (floor ,floor)
+        (log   ,log) 
+        (log10 ,log10) 
+        (round ,round) 
+        (sin   ,sin) 
+        (sqrt  ,sqrt) 
+        (tan   ,tan) 
+        (trunc ,trunc)
     ))
+    
 (define NAN (/ 0.0 0.0))
 
 (define (eval-expr expr)
     (cond ((number? expr) (+ expr 0.0))
-          ((symbol? expr) (hash-ref *var-table* expr 0.0))
-          ((pair? expr) 
-              (let ((func (hash-ref *functions* (car expr) #f))
+        ((symbol? expr) (hash-ref *var-table* expr 0.0))
+        ((pair? expr) 
+            (let ((func (hash-ref *functions* (car expr) #f))
                     (opnds (map eval-expr (cdr expr))))
                    (if (not func) NAN
                        (apply func opnds))))
-          (else NAN)))
+        (else NAN)))
 
 (define (interp-dim args continuation)
     (not-implemented 'interp-dim args 'nl)
@@ -107,7 +128,7 @@
     (cond ((not (symbol? (car args))) 
               (print "Error invalid variable type")))
     (let* ((value (eval-expr (cadr args)))
-           (varName (car args)))
+        (varName (car args)))
         (hash-set! *var-table* varName value))
     (interp-program continuation))
 
