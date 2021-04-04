@@ -136,7 +136,6 @@
                      (hash-set! *hash* label program)))
           (scan-for-labels (cdr program))))
 
-
 (define (readlist filename)
     (let ((inputfile (open-input-file filename)))
          (if (not (input-port? inputfile))
