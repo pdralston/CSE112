@@ -1,4 +1,5 @@
-#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme -qr
+#!/usr/bin/mzscheme -qr
+;;#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme -qr
 ;; $Id: mbir.scm,v 1.9 2021-01-12 11:57:59-08 - - $
 ;;
 ;; NAME
@@ -126,7 +127,16 @@
                    (interp-program continuation)))))
 
 (define (scan-for-labels program)
-    (not-implemented 'scan-for-labels '() 'nl))
+    (define (get-label line)
+        (and (not (null? line))
+             (not (null? (cdr line)))
+             (cadr line)))
+    (when (not (null? program))
+          (let ((label (get-label (car program))))
+               (when (symbol? label)
+                     (hash-set! *hash* label program)))
+          (scan-for-labels (cdr program))))
+
 
 (define (readlist filename)
     (let ((inputfile (open-input-file filename)))
