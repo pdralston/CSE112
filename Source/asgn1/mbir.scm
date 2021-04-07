@@ -90,7 +90,7 @@
     (interp-program continuation))
 
 (define (interp-if args continuation)
-    (not-implemented 'interp-if args 'nl)
+    (if (eval args) #t #f)
     (interp-program continuation))
 
 (define (interp-print args continuation)
