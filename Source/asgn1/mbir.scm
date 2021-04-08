@@ -153,11 +153,17 @@
    (interp-program continuation))
 
 (define (interp-goto args continuation)
-    (not-implemented 'interp-goto args 'nl)
-    (interp-program continuation))
+    (let ((line (hash-ref! *label-table* (car args) #f)))
+        (and (pair?  line)
+             (pair? (car line))
+             (let ((func (hash-ref *stmt-table* (caar line) #f)))
+                    (func (cdar line) (cdr line)))
+            (exit 1)
+        ))
+)
 
 (define (interp-if args continuation)
-    (not-implemented 'interp-if args 'nl)
+    (if (eval args) #t #f)
     (interp-program continuation))
 
 (define (interp-print args continuation)
@@ -193,8 +199,17 @@
                    (interp-program continuation)))))
 
 (define (scan-for-labels program)
-    (not-implemented 'scan-for-labels '() 'nl))
-    
+    (define (get-label line)
+        (and (not (null? line))
+             (not (null? (cdr line)))
+             (cadr line)))
+    (when (not (null? program))
+          (let* (( line (car program))
+               (label (get-label line)))
+               (when (symbol? label)
+                     (hash-set! *label-table* label (cons (line-stmt line) (cdr program)))))
+          (scan-for-labels (cdr program))))
+
 (define (readlist filename)
     (let ((inputfile (open-input-file filename)))
          (if (not (input-port? inputfile))
