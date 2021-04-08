@@ -91,7 +91,6 @@
              (pair? (car line))
              (let ((func (hash-ref *stmt-table* (caar line) #f)))
                     (func (cdar line) (cdr line)))
-            ;;exit
             (exit 1)
         ))
 )
