@@ -82,6 +82,12 @@
         ((value > 0) (floor value))
         ((value < 0) (ceiling value))))
 
+(define (asub args)
+    (let* ((array (cadr args))
+           (index (exact-round (eval-expr (caddr args)))))
+        (vector-ref  (hash-ref *array-table* array) index)
+    )
+)
 (for-each
     (lambda (symfun) (hash-set! *functions* (car symfun) (cadr symfun)))
     `(
@@ -111,25 +117,37 @@
 
 (define (eval-expr expr)
     (cond ((number? expr) (+ expr 0.0))
-        ((symbol? expr) (hash-ref *var-table* expr 0.0))
-        ((pair? expr) 
-            (let ((func (hash-ref *functions* (car expr) #f))
-                    (opnds (map eval-expr (cdr expr))))
-                   (if (not func) NAN
-                       (apply func opnds))))
-        (else NAN)))
+          ((symbol? expr) (hash-ref *var-table* expr 0.0))
+          ((pair? expr) 
+               (cond 
+                   ((eq? (car expr) 'asub) (asub expr))
+               (else
+                   (let ((func (hash-ref *functions* (car expr) #f))
+                         (opnds (map eval-expr (cdr expr))))
+                            (if (not func) NAN
+                                (apply func opnds))))))
+    (else NAN)))
 
 (define (interp-dim args continuation)
-    (not-implemented 'interp-dim args 'nl)
+    (let* ((listName (cadar args))
+          (listLen  (exact-round (eval-expr (caddar args)))))
+          (hash-set! *array-table* listName (make-vector listLen 0.0))
+    )
     (interp-program continuation))
 
 (define (interp-let args continuation)
-    (cond ((not (symbol? (car args))) 
-              (print "Error invalid variable type")))
-    (let* ((value (eval-expr (cadr args)))
-        (varName (car args)))
-        (hash-set! *var-table* varName value))
-    (interp-program continuation))
+    (cond  
+        ((symbol? (car args))
+            (let* ((value (eval-expr (cadr args)))
+                   (varName (car args)))
+                (hash-set! *var-table* varName value)))
+        ((list? (car args))
+            (let* ((array (cadar args))
+                   (index (exact-round (eval-expr (caddar args))))
+                   (value (eval-expr (cadr args))))
+                (vector-set! (hash-ref *array-table* array) index value)))
+        (else (print "Invalid Variable type")))
+   (interp-program continuation))
 
 (define (interp-goto args continuation)
     (let ((line (hash-ref! *label-table* (car args) #f)))
@@ -220,4 +238,3 @@
                        (interp-program program))))))
 
 (main *ARG-LIST*)
-
