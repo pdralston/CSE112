@@ -132,11 +132,9 @@
     (interp-program continuation))
 
 (define (interp-goto args continuation)
-    (let ((line (hash-ref! *label-table* (car args) #f)))
-        (and (pair?  line)
-             (pair? (car line))
-             (let ((func (hash-ref *stmt-table* (caar line) #f)))
-                    (func (cdar line) (cdr line)))
+    (let ((program (hash-ref! *label-table* (car args) #f)))
+        (if program 
+            (interp-program program)
             (exit 1)
         ))
 )
@@ -186,7 +184,7 @@
           (let* (( line (car program))
                (label (get-label line)))
                (when (symbol? label)
-                     (hash-set! *label-table* label (cons (line-stmt line) (cdr program)))))
+                     (hash-set! *label-table* label program)))
           (scan-for-labels (cdr program))))
 
 (define (readlist filename)
