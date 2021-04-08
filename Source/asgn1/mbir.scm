@@ -115,7 +115,6 @@
 
 (define NAN (/ 0.0 0.0))
 
-
 (define (eval-expr expr)
     (cond ((number? expr) (+ expr 0.0))
           ((symbol? expr) (hash-ref *var-table* expr 0.0))
