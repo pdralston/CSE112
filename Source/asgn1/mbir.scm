@@ -135,7 +135,7 @@
     )
     (interp-program continuation))
 
-(define (interp-let args continuation)
+(define (let-helper args)
     (cond  
         ((symbol? (car args))
             (let* ((value (eval-expr (cadr args)))
@@ -146,8 +146,11 @@
                    (index (exact-round (eval-expr (caddar args))))
                    (value (eval-expr (cadr args))))
                 (vector-set! (hash-ref *array-table* array) index value)))
-        (else (print "Invalid Variable type")))
-   (interp-program continuation))
+    (else (print "Invalid Variable type"))))
+
+(define (interp-let args continuation)
+    (let-helper args)
+    (interp-program continuation))
 
 (define (interp-goto args continuation)
     (let ((line (hash-ref! *label-table* (car args) #f)))
@@ -173,8 +176,15 @@
     (interp-program continuation))
 
 (define (interp-input args continuation)
-    (not-implemented 'interp-input args 'nl)
+    {define (readnumber)
+        (let ((object (read)))
+             (cond [(eof-object? object) object]
+                   [(number? object) (+ object 0.0)]
+                   [else (begin (printf "invalid number: ~a~n" object)
+                                (readnumber))] )) }
+    (for-each (lambda (var) (let-helper (list var (readnumber)))) args)
     (interp-program continuation))
+
 
 (for-each (lambda (fn) (hash-set! *stmt-table* (car fn) (cadr fn)))
    `(
