@@ -26,8 +26,8 @@
 
 (for-each (lambda (var) (hash-set! *var-table* (car var) (cadr var)))
    `(
+        (eof  ,0.0)
         (e    ,(exp 1.0))
-        (eof    0.0)
         (nan  ,(/ 0.0 0.0))
         (pi   ,(acos -1))
         (i    ,(sqrt -1))
@@ -178,11 +178,15 @@
 (define (interp-input args continuation)
     {define (readnumber)
         (let ((object (read)))
-             (cond [(eof-object? object) object]
+             (cond [(eof-object? object) (hash-set! *var-table* 'eof 1.0) NAN]
                    [(number? object) (+ object 0.0)]
-                   [else (begin (printf "invalid number: ~a~n" object)
-                                (readnumber))] )) }
-    (for-each (lambda (var) (let-helper (list var (readnumber)))) args)
+                   [else NAN] )) }
+
+    (for-each (lambda (var) (
+        cond [(eqv? (hash-ref *var-table* 'eof) 1.0)
+                    (let-helper (list var NAN))]
+              [else (let-helper (list var (readnumber)))]
+    ))args)
     (interp-program continuation))
 
 
