@@ -181,14 +181,12 @@
              (cond [(eof-object? object) (hash-set! *var-table* 'eof 1.0) NAN]
                    [(number? object) (+ object 0.0)]
                    [else NAN] )) }
-
     (for-each (lambda (var) (
         cond [(eqv? (hash-ref *var-table* 'eof) 1.0)
                     (let-helper (list var NAN))]
               [else (let-helper (list var (readnumber)))]
     ))args)
     (interp-program continuation))
-
 
 (for-each (lambda (fn) (hash-set! *stmt-table* (car fn) (cadr fn)))
    `(
