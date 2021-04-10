@@ -153,7 +153,8 @@
             (let* ((array (cadar args))
                    (index (exact-round (eval-expr (caddar args))))
                    (value (eval-expr (cadr args))))
-                (vector-set! (hash-ref *array-table* array) index value)))
+                (vector-set! (hash-ref *array-table* array) 
+                    index value)))
     (else (print "Invalid Variable type"))))
 
 (define (interp-let args continuation)
@@ -186,7 +187,8 @@
 (define (interp-input args continuation)
     {define (readnumber)
         (let ((object (read)))
-             (cond [(eof-object? object) (hash-set! *var-table* 'eof 1.0) NAN]
+             (cond [(eof-object? object) 
+                    (hash-set! *var-table* 'eof 1.0) NAN]
                    [(number? object) (+ object 0.0)]
                    [else NAN] )) }
     (for-each (lambda (var) (
