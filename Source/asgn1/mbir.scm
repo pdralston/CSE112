@@ -103,6 +103,7 @@
         (>     ,>)
         (<=     ,<=)
         (>=     ,>=)
+        (!=     ,(lambda (x y) (not (= x y))))
         (^     ,expt)
         (abs   ,abs)
         (acos  ,acos)
