@@ -1,6 +1,3 @@
-;;-- Perry Ralston (pdralsto@ucsc.edu)
-;;-- Areman Hashemi (armhashe@ucsc.edu)
-
 #!/afs/cats.ucsc.edu/courses/cse112-wm/usr/racket/bin/mzscheme -qr
 ;; $Id: mbir.scm,v 1.9 2021-01-12 11:57:59-08 - - $
 ;;
@@ -14,7 +11,8 @@
 ;;    The file mentioned in argv[1] is read and assumed to be an mbir
 ;;    program, which is the executed.  Currently it is only printed.
 ;;
-
+;;-- Perry Ralston (pdralsto@ucsc.edu)
+;;-- Areman Hashemi (armhashe@ucsc.edu)
 (define *DEBUG* #f)
 (define *STDIN* (current-input-port))
 (define *STDOUT* (current-output-port))
