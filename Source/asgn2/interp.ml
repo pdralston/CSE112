@@ -1,6 +1,7 @@
 (* $Id: interp.ml,v 1.18 2021-01-29 11:08:27-08 - - $ *)
 
 open Absyn
+open Tables
 
 let want_dump = ref false
 
@@ -9,8 +10,16 @@ let source_filename = ref ""
 let rec eval_expr (expr : Absyn.expr) : float = match expr with
     | Number number -> number
     | Memref memref -> eval_memref memref
-    | Unary (oper, expr) -> eval_STUB "eval_expr Unary"
-    | Binary (oper, expr1, expr2) -> eval_STUB "eval_expr Binary"
+    | Unary (oper, expr) -> (getUnop  oper) (eval_expr expr)
+    | Binary (oper, expr1, expr2) -> (getBinop oper) (eval_expr expr1) (eval_expr expr2)
+
+and getBinop op = 
+    let result = Hashtbl.find binary_fn_table op
+        in result
+
+and getUnop op =
+    let result = Hashtbl.find unary_fn_table op 
+        in result
 
 and eval_memref (memref : Absyn.memref) : float = match memref with
     | Arrayref (ident, expr) -> eval_STUB "eval_memref Arrayref"
