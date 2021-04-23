@@ -2,6 +2,7 @@
 
 open Absyn
 open Tables
+
 let want_dump = ref false
 
 let source_filename = ref ""
@@ -19,6 +20,7 @@ and getBinop op =
 and getUnop op =
     let result = Hashtbl.find unary_fn_table op 
         in result
+
 and eval_memref (memref : Absyn.memref) : float = match memref with
     | Arrayref (ident, expr) -> eval_STUB "eval_memref Arrayref"
     | Variable ident -> try Hashtbl.find Tables.variable_table ident
