@@ -2,7 +2,9 @@
 
 open Absyn
 open Tables
-
+open Printf
+open Dumper
+open Etc
 let want_dump = ref false
 
 let source_filename = ref ""
@@ -22,7 +24,9 @@ and getUnop op =
     in result
 
 and eval_memref (memref : Absyn.memref) : float = match memref with
-    | Arrayref (ident, expr) -> eval_STUB "eval_memref Arrayref"
+    | Arrayref (ident, expr) -> 
+        let index = int_of_round_float (eval_expr expr)
+        in Array.get (Hashtbl.find array_table ident) index;
     | Variable ident -> try Hashtbl.find Tables.variable_table ident
                         with Not_found -> 0.0
 
@@ -38,12 +42,19 @@ let rec interpret (program : Absyn.program) = match program with
 
 and interp_stmt (stmt : Absyn.stmt) (continue : Absyn.program) =
     match stmt with
-    | Dim (ident, expr) -> interp_STUB "Dim (ident, expr)" continue
+    | Dim (ident, expr) -> interp_dim ident expr continue
     | Let (memref, expr) -> interp_let memref expr continue
     | Goto label -> interp_STUB "Goto label" continue
     | If (expr, label) -> interp_STUB "If (expr, label)" continue
     | Print print_list -> interp_print print_list continue
     | Input memref_list -> interp_input memref_list continue
+
+
+and interp_dim (ident : Absyn.ident) (expr : Absyn.expr) (continue : Absyn.program) = 
+    let len = int_of_round_float (eval_expr expr)
+        in Hashtbl.add Tables.array_table ident (Array.make len 0.0);
+       interpret continue
+
 
 and interp_let (memref : Absyn.memref) (expr : Absyn.expr) (continue : Absyn.program) =
     match memref with
@@ -51,7 +62,17 @@ and interp_let (memref : Absyn.memref) (expr : Absyn.expr) (continue : Absyn.pro
         let value = eval_expr expr
         in Hashtbl.replace Tables.variable_table label value;
         interpret continue
-    | Arrayref (label, expr)-> interpret continue
+    | Arrayref (arr, indexExpr)-> 
+        let value = eval_expr expr
+        and index = int_of_round_float (eval_expr indexExpr)
+        and array = Hashtbl.find Tables.array_table arr
+        in try array.(index)<-value;
+            Hashtbl.replace Tables.array_table arr array;
+            (* let rec print_list = function [] -> ()
+            | e::l -> print_float e; print_string " "; print_list l
+            in print_list (Array.to_list array); *)
+            interpret continue
+           with Not_found -> printf "%s: Not_found\n%!" arr;
 
 (* and eval_memref (memref : Absyn.memref) : float = match memref with
     | Arrayref (ident, expr) -> eval_STUB "eval_memref Arrayref"
