@@ -15,11 +15,11 @@ let rec eval_expr (expr : Absyn.expr) : float = match expr with
 
 and getBinop op = 
     let result = Hashtbl.find binary_fn_table op
-        in result
+    in result
 
 and getUnop op =
     let result = Hashtbl.find unary_fn_table op 
-        in result
+    in result
 
 and eval_memref (memref : Absyn.memref) : float = match memref with
     | Arrayref (ident, expr) -> eval_STUB "eval_memref Arrayref"
@@ -39,12 +39,25 @@ let rec interpret (program : Absyn.program) = match program with
 and interp_stmt (stmt : Absyn.stmt) (continue : Absyn.program) =
     match stmt with
     | Dim (ident, expr) -> interp_STUB "Dim (ident, expr)" continue
-    | Let (memref, expr) -> interp_STUB "Let (memref, expr)" continue
+    | Let (memref, expr) -> interp_let memref expr continue
     | Goto label -> interp_STUB "Goto label" continue
     | If (expr, label) -> interp_STUB "If (expr, label)" continue
     | Print print_list -> interp_print print_list continue
     | Input memref_list -> interp_input memref_list continue
 
+and interp_let (memref : Absyn.memref) (expr : Absyn.expr) (continue : Absyn.program) =
+    match memref with
+    | Variable label ->
+        let value = eval_expr expr
+        in Hashtbl.replace Tables.variable_table label value;
+        interpret continue
+    | Arrayref (label, expr)-> interpret continue
+
+(* and eval_memref (memref : Absyn.memref) : float = match memref with
+    | Arrayref (ident, expr) -> eval_STUB "eval_memref Arrayref"
+    | Variable ident -> try Hashtbl.find Tables.variable_table ident
+                        with Not_found -> 0.0 *)
+                        
 and interp_print (print_list : Absyn.printable list)
                  (continue : Absyn.program) =
     let print_item item = match item with
