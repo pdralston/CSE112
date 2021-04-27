@@ -5,6 +5,7 @@ open Tables
 open Printf
 open Dumper
 open Etc
+
 let want_dump = ref false
 
 let source_filename = ref ""
@@ -15,15 +16,17 @@ let rec eval_expr (expr : Absyn.expr) : float = match expr with
     | Unary (oper, expr) -> (eval_unop  oper) (eval_expr expr)
     | Binary (oper, expr1, expr2) -> (eval_binop oper) (eval_expr expr1) (eval_expr expr2)
 
-(* What Should the default operation be for operations not found *)
 and eval_binop op = 
-    let result = Hashtbl.find binary_fn_table op
+    let result = try (Hashtbl.find binary_fn_table op)
+                     with Not_found -> die ["Binop not found"]; (+.)
     in result
 
 and eval_unop op =
-    let result = Hashtbl.find unary_fn_table op 
+    let result = try (Hashtbl.find unary_fn_table op)
+                     with Not_found -> die ["Unop not found"]; (~+.)
     in result
 
+ 
 and eval_memref (memref : Absyn.memref) : float = match memref with
     | Arrayref (ident, expr) -> 
         (let index = int_of_round_float (eval_expr expr)
@@ -61,20 +64,22 @@ and interp_dim (ident : Absyn.ident) (expr : Absyn.expr) (continue : Absyn.progr
     interpret continue
 
 and interp_let (memref : Absyn.memref) (expr : Absyn.expr) (continue : Absyn.program) =
+    interp_let_helper memref expr;
+    interpret continue
+
+and interp_let_helper (memref : Absyn.memref) (expr : Absyn.expr) =
     match memref with
     | Variable label ->
         let value = eval_expr expr
         in Hashtbl.replace Tables.variable_table label value;
-        interpret continue
     | Arrayref (arr, indexExpr)-> 
         let value = eval_expr expr
         and index = int_of_round_float (eval_expr indexExpr)
         and array = Hashtbl.find Tables.array_table arr
         in try array.(index)<-value;
             Hashtbl.replace Tables.array_table arr array;
-            interpret continue
             with Not_found -> printf "%s: Not_found\n%!" arr;
-                       
+
 and interp_print (print_list : Absyn.printable list)
                  (continue : Absyn.program) =
     let print_item item = match item with
@@ -86,14 +91,19 @@ and interp_print (print_list : Absyn.printable list)
     in (List.iter print_item print_list; print_newline ());
     interpret continue
 
-
 and interp_input (memref_list : Absyn.memref list)
                  (continue : Absyn.program)  =
     let input_number memref =
-        try  let number = Etc.read_number ()
-             in (print_float number; print_newline ())
+        try 
+            let eof = Hashtbl.find Tables.variable_table "eof"
+            in if eof = 0.0
+                then
+                    let number = Etc.read_number ()
+                    in interp_let_helper memref (Number number)
+                else 
+                    interp_let_helper memref (Number 0.0)
         with End_of_file -> 
-             (print_string "End_of_file"; print_newline ())
+             interp_let_helper (Variable "eof") (Number 1.0)
     in List.iter input_number memref_list;
     interpret continue
 
