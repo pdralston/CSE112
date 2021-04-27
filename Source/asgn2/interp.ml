@@ -26,7 +26,6 @@ and eval_unop op =
                      with Not_found -> die ["Unop not found"]; (~+.)
     in result
 
- 
 and eval_memref (memref : Absyn.memref) : float = match memref with
     | Arrayref (ident, expr) -> 
         (let index = int_of_round_float (eval_expr expr)
@@ -55,7 +54,6 @@ and interp_stmt (stmt : Absyn.stmt) (continue : Absyn.program) =
     | If (expr, label) -> interp_STUB "If (expr, label)" continue
     | Print print_list -> interp_print print_list continue
     | Input memref_list -> interp_input memref_list continue
-
 
 and interp_dim (ident : Absyn.ident) (expr : Absyn.expr) (continue : Absyn.program) = 
     let len = int_of_round_float (eval_expr expr)
@@ -119,4 +117,3 @@ let interpret_program program =
      if !want_dump then Dumper.dump_program program;
      interpret program;
      if !want_dump then Tables.dump_label_table ())
-
