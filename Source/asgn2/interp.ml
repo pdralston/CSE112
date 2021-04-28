@@ -44,8 +44,10 @@ and eval_STUB reason = (
     print_string ("(" ^ reason ^ ")");
     nan)
 
-let rec eval_relexpr (relexpr : Absyn.relexpr) : bool = match relexpr with
-    | Relexpr (oper, expr1, expr2) -> (eval_relop oper) (eval_expr expr1) (eval_expr expr2)
+let rec eval_relexpr relexpr = match relexpr with
+    | Relexpr (oper, expr1, expr2) -> (eval_relop oper) 
+                                      (eval_expr expr1) 
+                                      (eval_expr expr2)
 
 and eval_relop op = 
     let result = try (Hashtbl.find bool_fn_table op)
@@ -67,13 +69,13 @@ and interp_stmt (stmt : Absyn.stmt) (continue : Absyn.program) =
     | Print print_list -> interp_print print_list continue
     | Input memref_list -> interp_input memref_list continue
 
-and interp_dim (ident : Absyn.ident) (expr : Absyn.expr) (continue : Absyn.program) = 
+and interp_dim ident expr continue = 
     let len = int_of_round_float (eval_expr expr)
     in let array = (Array.make len 0.0)
     in Hashtbl.add Tables.array_table ident array;
     interpret continue
 
-and interp_let (memref : Absyn.memref) (expr : Absyn.expr) (continue : Absyn.program) =
+and interp_let memref expr continue =
     interp_let_helper memref expr;
     interpret continue
 
@@ -119,7 +121,7 @@ and interp_input (memref_list : Absyn.memref list)
 
 and interp_goto label = (
     interpret (try (Hashtbl.find label_table label) 
-        with Not_found -> [])
+        with Not_found -> die ["Label not found"])
 )
 
 and interp_if (relexpr, label) continue = (
