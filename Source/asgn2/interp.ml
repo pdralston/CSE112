@@ -40,6 +40,14 @@ and eval_STUB reason = (
     print_string ("(" ^ reason ^ ")");
     nan)
 
+let rec eval_relexpr (relexpr : Absyn.relexpr) : bool = match relexpr with
+    | Relexpr (oper, expr1, expr2) -> (eval_relop oper) (eval_expr expr1) (eval_expr expr2)
+
+and eval_relop op = 
+    let result = try (Hashtbl.find bool_fn_table op)
+                     with Not_found -> die ["Relop not found"]; (<)
+    in result
+
 let rec interpret (program : Absyn.program) = match program with
     | [] -> ()
     | firstline::continue -> match firstline with
@@ -50,8 +58,8 @@ and interp_stmt (stmt : Absyn.stmt) (continue : Absyn.program) =
     match stmt with
     | Dim (ident, expr) -> interp_dim ident expr continue
     | Let (memref, expr) -> interp_let memref expr continue
-    | Goto label -> interp_STUB "Goto label" continue
-    | If (expr, label) -> interp_STUB "If (expr, label)" continue
+    | Goto label -> interp_goto label
+    | If (relexpr, label) -> interp_if (relexpr, label) continue
     | Print print_list -> interp_print print_list continue
     | Input memref_list -> interp_input memref_list continue
 
@@ -104,6 +112,16 @@ and interp_input (memref_list : Absyn.memref list)
              interp_let_helper (Variable "eof") (Number 1.0)
     in List.iter input_number memref_list;
     interpret continue
+
+and interp_goto label = (
+    interpret (try (Hashtbl.find label_table label) 
+        with Not_found -> [])
+)
+
+and interp_if (relexpr, label) continue = (
+    if (eval_relexpr relexpr) then interp_goto label
+    else interpret continue
+)
 
 and interp_STUB reason continue = (
     print_string "Unimplemented: ";
