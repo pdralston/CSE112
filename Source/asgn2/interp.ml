@@ -121,7 +121,7 @@ and interp_input (memref_list : Absyn.memref list)
 
 and interp_goto label = (
     interpret (try (Hashtbl.find label_table label) 
-        with Not_found -> die ["Label not found"])
+        with Not_found -> die ["Label not found"]; [])
 )
 
 and interp_if (relexpr, label) continue = (
