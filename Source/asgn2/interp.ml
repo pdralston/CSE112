@@ -14,7 +14,9 @@ let rec eval_expr (expr : Absyn.expr) : float = match expr with
     | Number number -> number
     | Memref memref -> eval_memref memref
     | Unary (oper, expr) -> (eval_unop  oper) (eval_expr expr)
-    | Binary (oper, expr1, expr2) -> (eval_binop oper) (eval_expr expr1) (eval_expr expr2)
+    | Binary (oper, expr1, expr2) -> (eval_binop oper) 
+                                     (eval_expr expr1) 
+                                     (eval_expr expr2)
 
 and eval_binop op = 
     let result = try (Hashtbl.find binary_fn_table op)
@@ -30,9 +32,11 @@ and eval_memref (memref : Absyn.memref) : float = match memref with
     | Arrayref (ident, expr) -> 
         (let index = int_of_round_float (eval_expr expr)
         and array = try (Hashtbl.find array_table ident)
-                    with Not_found -> (die ["Undefined Array Access"]); [|0.0|]
+                    with Not_found -> (die 
+                        ["Undefined Array Access"]); [|0.0|]
         in try Array.get array index
-           with Invalid_argument _-> die ["Invalid Index argument"]; 0.0)
+            with Invalid_argument _-> (die 
+                ["Invalid Index argument"]); 0.0)
     | Variable ident -> try Hashtbl.find Tables.variable_table ident
                         with Not_found -> 0.0
 
