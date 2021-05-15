@@ -179,6 +179,11 @@ Stmt subclass: GotoStmt [
    GotoStmt class >> new: stmt [^ super new init: stmt]
    init: stmt [label := stmt at: 2]
    printOn: file [^ file << self prefix << label << ')']
+   interp [
+      |stmtNumber|
+      stmtNumber := labelDict at: label ifAbsent: [nil].
+      stmtNumber = nil ifFalse: [stmtNr := stmtNumber]
+   ]
 ].
 
 Stmt subclass: IfStmt [
@@ -315,6 +320,15 @@ Object subclass: Main [
       stdout << '].' << nl.
    ]
 
+      Main class >> addLabels: program [
+      1 to: program size do: [:index|
+         |label|
+         label := (program at: index) at: 2.
+         label = nil ifFalse: [Stmt.labelDict at: label put: index].
+      ].
+      Debug > 0 ifTrue: [Stmt.labelDict inspect].
+   ]
+
    Main class >> getopts [
       |fileName|
       Smalltalk arguments: '-d' do: [:opt :arg|
@@ -339,6 +353,7 @@ Object subclass: Main [
          FileStream fileIn: fileName.
          program := Program get.
          Debug > 0 ifTrue: [Main print: program].
+         Main addLabels: program.
          interpreter := Interpreter new: program.
          Debug > 0 ifTrue: [interpreter print].
          interpreter interpret.
