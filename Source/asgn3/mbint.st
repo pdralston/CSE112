@@ -212,10 +212,14 @@ Stmt subclass: InputStmt [
    interp [
       inputVars do: [:var|
          |value|
-         value := stdinNumbers nextNumber.
-         stdout << thisContext method << ' '
-                << var << ': ' << value << nl.
+         VarExpr.varDict.eof = 0 ifTrue: [
+            value := stdinNumbers nextNumber.
+            stdinNumbers atEnd ifTrue: [VarExpr.varDict at: #eof put: 1.0. var put: Expr.nan.]
+            ifFalse: [var put: value.]
+         ]
+         ifFalse:[var put: Expr.nan.]
       ].
+      Debug > 2 ifTrue:[VarExpr.varDict inspect]
    ]
 ].
 
