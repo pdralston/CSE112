@@ -219,7 +219,7 @@ Stmt subclass: InputStmt [
          ]
          ifFalse:[var put: Expr.nan.]
       ].
-      VarExpr.varDict inspect
+      Debug > 2 ifTrue:[VarExpr.varDict inspect]
    ]
 ].
 
