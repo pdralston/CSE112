@@ -110,8 +110,10 @@ Expr subclass: BinopExpr [
       ^ file << self prefix << oper << ' ' << opnd1
              << ' ' << opnd2 << ')'.
    ]
+   aput: val [(opnd1 value) at: (opnd2 value asInteger) put: (val).]
    value [
-       ^ (opnd1 value) perform: oper with: (opnd2 value).
+      oper = #aget ifTrue:[^((opnd1 value) at: ((opnd2 value) asInteger))]
+      ifFalse:[^ (opnd1 value) perform: oper with: (opnd2 value).]
    ]
 ].
 
@@ -121,6 +123,9 @@ Expr subclass: ArrayExpr [
    ArrayExpr class >> new: var [^ super new init: var]
    init: var [arrayName := var]
    printOn: file [^ file << self prefix << arrayName << ')']
+   put: idx put: val [(arrayDict at: arrayName) at: 1 put: val] 
+   make: size [arrayDict at: arrayName put: (Array new: (size value) asInteger). ] 
+   value  [^ arrayDict at: arrayName ifAbsent: [0.0]]
 ].
 
 Expr extend [
@@ -168,6 +173,7 @@ Stmt subclass: DimStmt [
       size := Expr parse: (stmt at: 3).
    ]
    printOn: file [^ file << self prefix << name << ' ' << size << ')']
+   interp [name make: size]
 ].
 
 Stmt subclass: LetStmt [
@@ -178,6 +184,9 @@ Stmt subclass: LetStmt [
       expr := Expr parse: (stmt at: 3).
    ]
    printOn: file [^ file << self prefix << name << ' ' << expr << ')']
+   interp [ (name isMemberOf: VarExpr)   ifTrue: [name put: (expr value)].
+            (name isMemberOf: BinopExpr) ifTrue: [name aput: (expr value)].
+          ]
 ].
 
 Stmt subclass: GotoStmt [
