@@ -1,5 +1,7 @@
 #!/afs/cats.ucsc.edu/courses/cse112-wm/usr/smalltalk/bin/gst -f
 "$Id: mbint.st,v 1.16 2021-02-11 19:21:43-08 - - $"
+"-- Areman Hashemi (armhashe@ucsc.edu)"
+"-- Perry Ralston (pdralsto@ucsc.edu)"
 
 Object subclass: NumberStream [
    |atEndFlag stream buffer|
