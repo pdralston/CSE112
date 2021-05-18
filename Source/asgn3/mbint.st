@@ -1,4 +1,5 @@
-#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/smalltalk/bin/gst -f
+#!/usr/local/bin/gst -f
+"#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/smalltalk/bin/gst -f"
 "$Id: mbint.st,v 1.16 2021-02-11 19:21:43-08 - - $"
 "-- Areman Hashemi (armhashe@ucsc.edu)"
 "-- Perry Ralston (pdralsto@ucsc.edu)"
@@ -114,7 +115,8 @@ Expr subclass: BinopExpr [
    ]
    aput: val [(opnd1 value) at: (opnd2 value asInteger + 1) put: (val).]
    value [
-      oper = #aget ifTrue:[^((opnd1 value) at: ((opnd2 value) asInteger + 1))]
+      oper = #aget ifTrue:[^((opnd1 value) at: 
+        ((opnd2 value) asInteger + 1))]
       ifFalse:[^ (opnd1 value) perform: oper with: (opnd2 value).]
    ]
 ].
@@ -126,7 +128,8 @@ Expr subclass: ArrayExpr [
    init: var [arrayName := var]
    printOn: file [^ file << self prefix << arrayName << ')']
    put: idx put: val [(arrayDict at: arrayName) at: 1 put: val] 
-   make: size [arrayDict at: arrayName put: (Array new: (size value) asInteger). ] 
+   make: size [arrayDict at: arrayName put: 
+        (Array new: (size value) asInteger). ] 
    value  [^ arrayDict at: arrayName ifAbsent: [0.0]]
 ].
 
@@ -185,9 +188,12 @@ Stmt subclass: LetStmt [
       name := Expr parse: (stmt at: 2).
       expr := Expr parse: (stmt at: 3).
    ]
-   printOn: file [^ file << self prefix << name << ' ' << expr << ')']
-   interp [ (name isMemberOf: VarExpr)   ifTrue: [name put: (expr value)].
-            (name isMemberOf: BinopExpr) ifTrue: [name aput: (expr value)].
+   printOn: file [^ file << self prefix << 
+        name << ' ' << expr << ')']
+   interp [ (name isMemberOf: VarExpr)   
+            ifTrue: [name put: (expr value)].
+            (name isMemberOf: BinopExpr) 
+            ifTrue: [name aput: (expr value)].
           ]
 ].
 
@@ -212,7 +218,8 @@ Stmt subclass: IfStmt [
    ]
    printOn: file [^ file << self prefix << expr << ' ' << label << ')']
    interp [
-      expr value ifTrue: [stmtNr := labelDict at: label ifAbsent: [stmtNr].].
+      expr value ifTrue: 
+        [stmtNr := labelDict at: label ifAbsent: [stmtNr].].
    ]
 ].
 
@@ -234,7 +241,8 @@ Stmt subclass: InputStmt [
          |value|
          VarExpr.varDict.eof = 0 ifTrue: [
             value := stdinNumbers nextNumber.
-            stdinNumbers atEnd ifTrue: [VarExpr.varDict at: #eof put: 1.0. var put: Expr.nan.]
+            stdinNumbers atEnd ifTrue: 
+                [VarExpr.varDict at: #eof put: 1.0. var put: Expr.nan.]
             ifFalse: [var put: value.]
          ]
          ifFalse:[var put: Expr.nan.]
@@ -380,6 +388,7 @@ Object subclass: Main [
          Main addLabels: program.
          interpreter := Interpreter new: program.
          Debug > 0 ifTrue: [interpreter print].
+         Debug > 0 ifTrue: [stdout << Stmt.labelDict].
          interpreter interpret.
       ] on: SystemExceptions.FileError do: [:signal|
          stderr << scriptName << ': ' << fileName << ': '
