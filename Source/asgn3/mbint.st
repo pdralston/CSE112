@@ -1,4 +1,4 @@
-#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/smalltalk/bin/gst -f
+#!/usr/local/bin/gst -f
 "$Id: mbint.st,v 1.16 2021-02-11 19:21:43-08 - - $"
 
 Object subclass: NumberStream [
@@ -110,9 +110,9 @@ Expr subclass: BinopExpr [
       ^ file << self prefix << oper << ' ' << opnd1
              << ' ' << opnd2 << ')'.
    ]
-   aput: val [(opnd1 value) at: (opnd2 value asInteger) put: (val).]
+   aput: val [(opnd1 value) at: (opnd2 value asInteger + 1) put: (val).]
    value [
-      oper = #aget ifTrue:[^((opnd1 value) at: ((opnd2 value) asInteger))]
+      oper = #aget ifTrue:[^((opnd1 value) at: ((opnd2 value) asInteger + 1))]
       ifFalse:[^ (opnd1 value) perform: oper with: (opnd2 value).]
    ]
 ].
