@@ -1,4 +1,4 @@
-#!/usr/local/bin/gst -f
+#!/afs/cats.ucsc.edu/courses/cse112-wm/usr/smalltalk/bin/gst -f
 "$Id: mbint.st,v 1.16 2021-02-11 19:21:43-08 - - $"
 
 Object subclass: NumberStream [
