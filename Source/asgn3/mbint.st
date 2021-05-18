@@ -200,6 +200,9 @@ Stmt subclass: IfStmt [
       label := stmt at: 3.
    ]
    printOn: file [^ file << self prefix << expr << ' ' << label << ')']
+   interp [
+      expr value ifTrue: [stmtNr := labelDict at: label ifAbsent: [stmtNr].].
+   ]
 ].
 
 Stmt subclass: InputStmt [
