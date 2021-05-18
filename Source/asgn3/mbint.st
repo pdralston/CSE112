@@ -93,6 +93,9 @@ Expr subclass: UnopExpr [
    printOn: file [
       ^ file << self prefix << oper << ' ' << opnd << ')'.
    ]
+   value [
+       ^ (opnd value) perform: oper.
+    ]
 ].
 
 Expr subclass: BinopExpr [
@@ -106,6 +109,9 @@ Expr subclass: BinopExpr [
    printOn: file [
       ^ file << self prefix << oper << ' ' << opnd1
              << ' ' << opnd2 << ')'.
+   ]
+   value [
+       ^ (opnd1 value) perform: oper with: (opnd2 value).
    ]
 ].
 
