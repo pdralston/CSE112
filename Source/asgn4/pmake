@@ -149,15 +149,19 @@ sub make_goal($) {
     #     if goal is a file return its modtime
     #     else stop with error "don't know how..."
     unless ($GRAPH{$goal}) {
-        my $mod = modtime $goal
+        my $mod = modtime $goal;
         unless($mod) {
-            die "Unable to continue, target unclear/file did not exist\n"
+            die "Unable to continue, target unclear/file did not exist\n";
         }
-        return $mod
+        return $mod;
     }
     # else it is a target.
     #     for each prereq:
     #         call make_goal recursively with that prereq
+    my $prereqs = $GRAPH{$goal}{PREREQS};
+    foreach (@$prereqs) {
+        make_goal($_);
+    }
     #         remember the newest prereq modtime
     #         if no prereqs, the newest modtime is 0
 
