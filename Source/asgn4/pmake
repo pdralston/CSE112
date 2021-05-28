@@ -64,16 +64,22 @@ my %strsignal = (
 
 sub make_goal($);
 
+sub modtime ($) {
+    my ($filename) = @_;
+    my @stat = stat $filename;
+    return @stat ? $stat[9] : undef;
+}
+
 sub run_command ($) {
-   my ($command) = @_;
-   my $status = eval {no warnings; system $command};
-   return undef unless $status;
-   return "$!" if $status == -1;
-   my $signal = $status & 0x7F;
-   my $core = $status & 0x80;
-   my $exit = ($status >> 8) & 0xFF;
-   return "Error $exit" unless $signal || $core;
-   return ($strsignal{$signal} || "Invalid Signal Number $signal")
+    my ($command) = @_;
+    my $status = eval {no warnings; system $command};
+    return undef unless $status;
+    return "$!" if $status == -1;
+    my $signal = $status & 0x7F;
+    my $core = $status & 0x80;
+    my $exit = ($status >> 8) & 0xFF;
+    return "Error $exit" unless $signal || $core;
+    return ($strsignal{$signal} || "Invalid Signal Number $signal")
         . ($core ? " (core dumped)" : "");
 }
 
@@ -87,54 +93,54 @@ sub usage() { die "Usage: $0 [-mgd] [target]\n" }
 sub stop($) { die "$Makefile:@_. Stop.\n" }
 
 sub scan_cmdline() {
-   getopts "dgm", \%OPTIONS;
-   usage unless @ARGV <= 1;
-   $MAKECMDGOALS = $ARGV[0] if @ARGV == 1;
+    getopts "dgm", \%OPTIONS;
+    usage unless @ARGV <= 1;
+    $MAKECMDGOALS = $ARGV[0] if @ARGV == 1;
 }
 
 sub dump_graph() {
-   print STDERR "%MACROS:\n";
-   for my $macro (sort keys %MACROS) {
-      printf STDERR "%7d [%s] = [%s]\n",
-             $MACROS{$macro}{LINE}, $macro, $MACROS{$macro}{VALUE};
-   }
-   print STDERR "MAKECMDGOALS = [$MAKECMDGOALS]\n";
-   print STDERR "%GRAPH:\n";
-   for my $target (sort keys %GRAPH) {
-      my $prereqs = $GRAPH{$target}{PREREQS};
-      printf STDERR "%7d [%s] :", $GRAPH{$target}{LINE}, $target;
-      print STDERR " [$_]" for @$prereqs;
-      print STDERR "\n";
-      for my $cmd (@{$GRAPH{$target}{COMMANDS}}) {
-         printf STDERR "%7d.\t[%s]\n", $cmd->{LINE}, $cmd->{CMD};;
-      }
-   }
+    print STDERR "%MACROS:\n";
+    for my $macro (sort keys %MACROS) {
+        printf STDERR "%7d [%s] = [%s]\n",
+                $MACROS{$macro}{LINE}, $macro, $MACROS{$macro}{VALUE};
+    }
+    print STDERR "MAKECMDGOALS = [$MAKECMDGOALS]\n";
+    print STDERR "%GRAPH:\n";
+    for my $target (sort keys %GRAPH) {
+        my $prereqs = $GRAPH{$target}{PREREQS};
+        printf STDERR "%7d [%s] :", $GRAPH{$target}{LINE}, $target;
+        print STDERR " [$_]" for @$prereqs;
+        print STDERR "\n";
+        for my $cmd (@{$GRAPH{$target}{COMMANDS}}) {
+            printf STDERR "%7d.\t[%s]\n", $cmd->{LINE}, $cmd->{CMD};;
+        }
+    }
 }
 
 sub load_Makefile() {
-   open my $mkfile, "<$Makefile" or die "$0: $Makefile: $!";
-   my $target;
-   while (defined (my $line = <$mkfile>)) {
-      next if $line =~ m/^\s*(#|$)/;
-      if (!$target && $line =~ m/^\s*(\S+)\s*=\s*(.*?)\s*$/) {
-         $MACROS{$1} = {LINE=> $., VALUE=> $2};
-      }elsif ($line =~ m/^(\S+)\s*:\s*(.*)/) {
-         $target = $1;
-         $GRAPH{$target}{PREREQS} = [split ' ', $2];
-         $GRAPH{$target}{LINE} = $.;
-         $MAKECMDGOALS = $target unless $MAKECMDGOALS;
-      }elsif ($line =~ m/^\t(.*)/) {
-         if (defined $target) {
+    open my $mkfile, "<$Makefile" or die "$0: $Makefile: $!";
+    my $target;
+    while (defined (my $line = <$mkfile>)) {
+        next if $line =~ m/^\s*(#|$)/;
+        if (!$target && $line =~ m/^\s*(\S+)\s*=\s*(.*?)\s*$/) {
+            $MACROS{$1} = {LINE=> $., VALUE=> $2};
+        }elsif ($line =~ m/^(\S+)\s*:\s*(.*)/) {
+            $target = $1;
+            $GRAPH{$target}{PREREQS} = [split ' ', $2];
+            $GRAPH{$target}{LINE} = $.;
+            $MAKECMDGOALS = $target unless $MAKECMDGOALS;
+        }elsif ($line =~ m/^\t(.*)/) {
+            if (defined $target) {
             push @{$GRAPH{$target}{COMMANDS}},
-                 {LINE=> $., CMD=> $1};
-         }else {
+                    {LINE=> $., CMD=> $1};
+            }else {
             stop "$.: Command before first target";
-         }
-      }else {
-         stop "$.: Missing separator";
-      }
-   }
-   close $mkfile;
+            }
+        }else {
+            stop "$.: Missing separator";
+        }
+    }
+    close $mkfile;
 }
 
 sub make_goal($) {
