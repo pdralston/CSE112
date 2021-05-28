@@ -1,7 +1,10 @@
 #!/usr/bin/perl
-# $Id: pmake,v 1.36 2020-12-04 14:39:10-08 - - $
+# $Id: pmake,v 1.40 2021-05-24 22:02:38-07 - - $
 #-- Areman Hashemi (armhashe@ucsc.edu)"
 #-- Perry Ralston (pdralsto@ucsc.edu)"
+
+#NOTES
+# remove the first n chars from a string: s/^.{$n}//s
 
 $0 =~ s|.*/||;
 use Getopt::Std;
@@ -59,10 +62,11 @@ my %strsignal = (
    31 => "Bad system call",
 );
 
-sub run_command (@) {
-   my (@command) = @_;
-   print "@command\n";
-   my $status = eval {no warnings; system @command};
+sub make_goal($);
+
+sub run_command ($) {
+   my ($command) = @_;
+   my $status = eval {no warnings; system $command};
    return undef unless $status;
    return "$!" if $status == -1;
    my $signal = $status & 0x7F;
@@ -79,11 +83,11 @@ my %OPTIONS;
 my %GRAPH;
 my %MACROS;
 
-sub usage() { die "Usage: $0 [-d] [target]\n" }
+sub usage() { die "Usage: $0 [-mgd] [target]\n" }
 sub stop($) { die "$Makefile:@_. Stop.\n" }
 
 sub scan_cmdline() {
-   getopts "dg", \%OPTIONS;
+   getopts "dgm", \%OPTIONS;
    usage unless @ARGV <= 1;
    $MAKECMDGOALS = $ARGV[0] if @ARGV == 1;
 }
@@ -132,10 +136,36 @@ sub load_Makefile() {
    }
    close $mkfile;
 }
+
+sub make_goal($) {
+    my ($goal) = @_;
+    # if goal is not a target:
+    #     if goal is a file return its modtime
+    #     else stop with error "don't know how..."
+    # else it is a target.
+    #     for each prereq:
+    #         call make_goal recursively with that prereq
+    #         remember the newest prereq modtime
+    #         if no prereqs, the newest modtime is 0
+
+    # run the commands if either of the following is true:
+    # the target file does not exist
+    # or the newest prereq is newer than the target modtime
+    # running a command:
+    # perform macro substitution on the command
+    # if the command does not begin with "@", print it
+    # call run_command
+    # if run_command returns undef, return 
+    # print the message:
+    #     if the command begins with "-" use (ignored), return
+    #     if not, print the message and exit 1
+}
+
 scan_cmdline;
 load_Makefile;
 
-dump_hash ("MACROS", %MACROS) if $OPTIONS{'d'};
-dump_hash ("GRAPH", %GRAPH) if $OPTIONS{'d'};
-dump_graph if $OPTIONS{'g'};
+dump_hash ("MACROS", %MACROS) if $OPTIONS{'m'};
+dump_hash ("GRAPH", %GRAPH) if $OPTIONS{'g'};
+dump_graph if $OPTIONS{'d'};
 
+make_goal ($MAKECMDGOALS);
