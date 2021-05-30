@@ -70,6 +70,17 @@ sub modtime ($) {
     return @stat ? $stat[9] : undef;
 }
 
+sub print_command ($) {
+    my ($cmd) = @_;
+    unless ($cmd =~ /^[@]/) {
+        $cmd =~ s/^[-][ ]*//s;
+        print "$cmd\n";
+        return $cmd;
+    }
+    $cmd =~ s/^[@][ ]*//s;
+    return $cmd;
+}
+
 sub run_command ($) {
     my ($command) = @_;
     my $status = eval {no warnings; system $command};
@@ -151,23 +162,38 @@ sub make_goal($) {
     unless ($GRAPH{$goal}) {
         my $mod = modtime $goal;
         unless($mod) {
-            die "Unable to continue, target unclear/file did not exist\n";
+            die "Unable to continue, target unclear. $goal did not exist\n";
         }
         return $mod;
     }
     # else it is a target.
-    #     for each prereq:
-    #         call make_goal recursively with that prereq
-    my $prereqs = $GRAPH{$goal}{PREREQS};
-    foreach (@$prereqs) {
-        make_goal($_);
+    # for each prereq:
+    #     call make_goal recursively with that prereq
+    #     remember the newest prereq modtime
+    #     if no prereqs, the newest modtime is 0
+    my $new_mod_time;
+    my $prereq_mod_time = 0;
+    foreach (@{$GRAPH{$goal}{PREREQS}}) {
+        $new_mod_time = make_goal($_);
+        $prereq_mod_time = $new_mod_time if ($new_mod_time && $new_mod_time > $prereq_mod_time);
     }
-    #         remember the newest prereq modtime
-    #         if no prereqs, the newest modtime is 0
-
     # run the commands if either of the following is true:
     # the target file does not exist
     # or the newest prereq is newer than the target modtime
+    my $target_mod_time = modtime $goal;
+    if (!$target_mod_time || $target_mod_time < $prereq_mod_time) {
+        my $commands = $GRAPH{$goal}{COMMANDS};
+        if ($commands) {
+            my $cmd = %{@$commands[0]}{CMD};
+            my $exit_on_error = !($cmd =~ /^[-]/);
+            my $status = run_command (print_command $cmd);
+            if ($status && $exit_on_error) {
+                die "$status\n";
+            }
+        }
+    }
+
+    
     # running a command:
     # perform macro substitution on the command
     # if the command does not begin with "@", print it
