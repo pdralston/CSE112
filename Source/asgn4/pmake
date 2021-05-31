@@ -127,7 +127,13 @@ sub dump_graph() {
         }
     }
 }
+sub rep_macro($) {
+   my ($input) = @_;
 
+   $input =~ s/\$\{(.*?)\}/$MACROS{$1}->{VALUE}/g;
+   $input =~ s/\$\$/\$/g;
+   return $input;
+}
 sub load_Makefile() {
     open my $mkfile, "<$Makefile" or die "$0: $Makefile: $!";
     my $target;
@@ -136,14 +142,14 @@ sub load_Makefile() {
         if (!$target && $line =~ m/^\s*(\S+)\s*=\s*(.*?)\s*$/) {
             $MACROS{$1} = {LINE=> $., VALUE=> $2};
         }elsif ($line =~ m/^(\S+)\s*:\s*(.*)/) {
-            $target = $1;
-            $GRAPH{$target}{PREREQS} = [split ' ', $2];
+            $target = rep_macro($1);
+            $GRAPH{$target}{PREREQS} = [split ' ', rep_macro($2)];
             $GRAPH{$target}{LINE} = $.;
             $MAKECMDGOALS = $target unless $MAKECMDGOALS;
         }elsif ($line =~ m/^\t(.*)/) {
             if (defined $target) {
             push @{$GRAPH{$target}{COMMANDS}},
-                    {LINE=> $., CMD=> $1};
+                    {LINE=> $., CMD=> rep_macro($1)};
             }else {
             stop "$.: Command before first target";
             }
