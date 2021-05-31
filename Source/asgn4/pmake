@@ -127,10 +127,10 @@ sub dump_graph() {
         }
     }
 }
-sub rep_macro($) {
-   my ($input) = @_;
-
+sub rep_macro(@) {
+   my ($input, $firstPreq) = @_;
    $input =~ s/\$\{(.*?)\}/$MACROS{$1}->{VALUE}/g;
+   $input =~ s/\$</$firstPreq/g;
    $input =~ s/\$\$/\$/g;
    return $input;
 }
@@ -148,8 +148,9 @@ sub load_Makefile() {
             $MAKECMDGOALS = $target unless $MAKECMDGOALS;
         }elsif ($line =~ m/^\t(.*)/) {
             if (defined $target) {
+            my ($firstPreq) = $GRAPH{$target}{PREREQS}[0];
             push @{$GRAPH{$target}{COMMANDS}},
-                    {LINE=> $., CMD=> rep_macro($1)};
+                    {LINE=> $., CMD=> rep_macro($1, $firstPreq)};
             }else {
             stop "$.: Command before first target";
             }
