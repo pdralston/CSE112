@@ -211,7 +211,7 @@ sub make_goal($) {
         my $commands = 
             $GRAPH{$resolved_wc ? $resolved_wc : $goal}{COMMANDS};
         if ($commands) {
-            my $cmd = %{@$commands[0]}{CMD};
+            my ($cmd) = (@$commands)[0]{CMD};
             if ($file) {
                 $cmd =~ s/(%\.c)/$file/;
             }
