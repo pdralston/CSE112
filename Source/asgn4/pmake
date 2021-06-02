@@ -185,7 +185,8 @@ sub make_goal($) {
     unless ($resolved_wc || $GRAPH{$goal}) {
         my $mod = modtime $goal;
         unless($mod) {
-            die "Unable to continue, target unclear. $goal did not exist\n";
+            die "Unable to continue, target unclear." 
+                . " $goal did not exist\n";
         }
         return $mod;
     }
@@ -201,11 +202,14 @@ sub make_goal($) {
         } else {
             $new_mod_time = make_goal($file);
         }
-        $prereq_mod_time = $new_mod_time if ($new_mod_time && $new_mod_time > $prereq_mod_time);
+        $prereq_mod_time = 
+            $new_mod_time if ($new_mod_time 
+                && $new_mod_time > $prereq_mod_time);
     }
     my $target_mod_time = modtime $goal;
     if (!$target_mod_time || $target_mod_time < $prereq_mod_time) {
-        my $commands = $GRAPH{$resolved_wc ? $resolved_wc : $goal}{COMMANDS};
+        my $commands = 
+            $GRAPH{$resolved_wc ? $resolved_wc : $goal}{COMMANDS};
         if ($commands) {
             my $cmd = %{@$commands[0]}{CMD};
             if ($file) {
