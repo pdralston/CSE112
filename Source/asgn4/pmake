@@ -127,6 +127,7 @@ sub dump_graph() {
         }
     }
 }
+
 sub rep_macro(@) {
    my ($input, $firstPreq) = @_;
    $input =~ s/\$\{(.*?)\}/$MACROS{$1}->{VALUE}/g;
@@ -134,6 +135,21 @@ sub rep_macro(@) {
    $input =~ s/\$\$/\$/g;
    return $input;
 }
+
+sub resolve_target_wildcrd (@) {
+    my ($target) = @_;
+    for my $key (keys %GRAPH){
+        if ($key =~ /(.)*%(.)*/) {
+            my ($prefix, $suffix) = $key =~ /(.*)[%](.*)/;
+            $suffix = '\\' . $suffix;
+            my $key_match = $prefix? qr/($prefix)(.+)($suffix)/ : qr/(.+)($suffix)/;
+            if ($target =~ $key_match) {
+                return $key;
+            }
+        }
+    }
+}
+
 sub load_Makefile() {
     open my $mkfile, "<$Makefile" or die "$0: $Makefile: $!";
     my $target;
@@ -163,10 +179,12 @@ sub load_Makefile() {
 
 sub make_goal($) {
     my ($goal) = @_;
+    my $file;
     # if goal is not a target:
     #     if goal is a file return its modtime
     #     else stop with error "don't know how..."
-    unless ($GRAPH{$goal}) {
+    my $resolved_wc = resolve_target_wildcrd ($goal);
+    unless ($resolved_wc || $GRAPH{$goal}) {
         my $mod = modtime $goal;
         unless($mod) {
             die "Unable to continue, target unclear. $goal did not exist\n";
@@ -180,8 +198,16 @@ sub make_goal($) {
     #     if no prereqs, the newest modtime is 0
     my $new_mod_time;
     my $prereq_mod_time = 0;
-    foreach (@{$GRAPH{$goal}{PREREQS}}) {
-        $new_mod_time = make_goal($_);
+    foreach (@{$GRAPH{$resolved_wc ? $resolved_wc : $goal}{PREREQS}}) {
+        $file = $_;
+        if ($file =~ /(.)*%(.)*/) {
+            my $suffix = $file =~ s/^(.)*%//r;
+            ($file = $goal) =~ s/(\.)(.)*//;
+            $file = $file . $suffix;
+            $new_mod_time = modtime $file;
+        } else {
+            $new_mod_time = make_goal($file);
+        }
         $prereq_mod_time = $new_mod_time if ($new_mod_time && $new_mod_time > $prereq_mod_time);
     }
     # run the commands if either of the following is true:
@@ -189,9 +215,12 @@ sub make_goal($) {
     # or the newest prereq is newer than the target modtime
     my $target_mod_time = modtime $goal;
     if (!$target_mod_time || $target_mod_time < $prereq_mod_time) {
-        my $commands = $GRAPH{$goal}{COMMANDS};
+        my $commands = $GRAPH{$resolved_wc ? $resolved_wc : $goal}{COMMANDS};
         if ($commands) {
             my $cmd = %{@$commands[0]}{CMD};
+            if ($file) {
+                $cmd =~ s/(%\.c)/$file/;
+            }
             my $exit_on_error = !($cmd =~ /^[-]/);
             my $status = run_command (print_command $cmd);
             if ($status && $exit_on_error) {
