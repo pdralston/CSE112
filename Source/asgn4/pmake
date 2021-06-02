@@ -142,7 +142,8 @@ sub resolve_target_wildcrd (@) {
         if ($key =~ /(.)*%(.)*/) {
             my ($prefix, $suffix) = $key =~ /(.*)[%](.*)/;
             $suffix = '\\' . $suffix;
-            my $key_match = $prefix? qr/($prefix)(.+)($suffix)/ : qr/(.+)($suffix)/;
+            my $key_match = $prefix? qr/($prefix)(.+)($suffix)/ : 
+                qr/(.+)($suffix)/;
             if ($target =~ $key_match) {
                 return $key;
             }
@@ -180,9 +181,6 @@ sub load_Makefile() {
 sub make_goal($) {
     my ($goal) = @_;
     my $file;
-    # if goal is not a target:
-    #     if goal is a file return its modtime
-    #     else stop with error "don't know how..."
     my $resolved_wc = resolve_target_wildcrd ($goal);
     unless ($resolved_wc || $GRAPH{$goal}) {
         my $mod = modtime $goal;
@@ -191,11 +189,6 @@ sub make_goal($) {
         }
         return $mod;
     }
-    # else it is a target.
-    # for each prereq:
-    #     call make_goal recursively with that prereq
-    #     remember the newest prereq modtime
-    #     if no prereqs, the newest modtime is 0
     my $new_mod_time;
     my $prereq_mod_time = 0;
     foreach (@{$GRAPH{$resolved_wc ? $resolved_wc : $goal}{PREREQS}}) {
@@ -210,9 +203,6 @@ sub make_goal($) {
         }
         $prereq_mod_time = $new_mod_time if ($new_mod_time && $new_mod_time > $prereq_mod_time);
     }
-    # run the commands if either of the following is true:
-    # the target file does not exist
-    # or the newest prereq is newer than the target modtime
     my $target_mod_time = modtime $goal;
     if (!$target_mod_time || $target_mod_time < $prereq_mod_time) {
         my $commands = $GRAPH{$resolved_wc ? $resolved_wc : $goal}{COMMANDS};
@@ -228,16 +218,6 @@ sub make_goal($) {
             }
         }
     }
-
-    
-    # running a command:
-    # perform macro substitution on the command
-    # if the command does not begin with "@", print it
-    # call run_command
-    # if run_command returns undef, return 
-    # print the message:
-    #     if the command begins with "-" use (ignored), return
-    #     if not, print the message and exit 1
 }
 
 scan_cmdline;
